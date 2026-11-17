@@ -3,10 +3,10 @@ import {initializeApp} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase
 import {getFirestore} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 import {getAuth} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 const app=initializeApp({
-  apiKey:'AIzaSyCFY-Hq5Fu9Mi61NECcr8CjNbwhbeNYV88',
-  authDomain:'thuexe-84663.firebaseapp.com',
-  projectId:'thuexe-84663',
-  appId:'1:721684541824:web:51b22477beb0e75eb31165'
+  apiKey:'AIzaSyC88AXzGUOCzQdFebcQmheoZXLRhsJ-Rrg',
+  authDomain:'booking-64385.firebaseapp.com',
+  projectId:'booking-64385',
+  appId:'1:237932899895:web:dbf9bd31dc0e11e1c359b2'
 });
 export const db=getFirestore(app), auth=getAuth(app);
 
