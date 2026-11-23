@@ -1,7 +1,7 @@
 <!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Admin Duy Khanh Booking</title><link rel="stylesheet" href="style.css"></head><body><div class="wrap">
+<title>Admin Duy Khanh Booker</title><link rel="stylesheet" href="style.css"></head><body><div class="wrap">
 <div id="lg" style="max-width:360px;margin:15vh auto"><h2>Đăng nhập admin</h2><p class="err" id="le"></p><button class="btn" id="gb">Đăng nhập bằng Google</button></div>
-<div id="app" hidden><div class="nav"><b class="brand">Admin</b><span class="tabs"><button data-t="s" class="on">Giới thiệu</button><button data-t="f">Tàu</button><button data-t="c">Xe</button><button data-t="b">Đơn đặt</button><button id="out">Thoát</button></span></div>
+<div id="app" hidden><div class="nav"><b class="brand">Admin</b><span class="tabs"><button data-t="s" class="on">Giới thiệu</button><button data-t="f">Tàu</button><button data-t="c">Xe</button><button data-t="m">Combo</button><button data-t="b">Đơn đặt</button><button id="out">Thoát</button></span></div>
 <section id="p-s"><div class="box"><label>Tên thương hiệu<input id="s_brand"></label><label>SĐT / Zalo<input id="s_phone"></label><label>Link Facebook<input id="s_fb" placeholder="https://facebook.com/..."></label><label>Link Instagram<input id="s_ig" placeholder="https://instagram.com/..."></label><label>Nội dung Chính sách bảo mật (khách bấm link trong form sẽ thấy; để trống = dùng mẫu có sẵn)<textarea id="s_privacy" rows="7"></textarea></label>
 <label>Giới thiệu<textarea id="s_intro" rows="4"></textarea></label><label>Kinh nghiệm<textarea id="s_exp" rows="3"></textarea></label>
 <label>Khách hàng (mỗi dòng một khách)<textarea id="s_customers" rows="3"></textarea></label><label>Tiêu đề trang Thông tin xe<input id="s_fleetTitle" placeholder="Những xe mình cho thuê"></label>
@@ -24,6 +24,11 @@
 <label><input type="checkbox" id="c_pin" style="width:auto"> Hiện ở mục "Tất cả" (tối đa 4)</label></div>
 <label>Link ảnh xe (vd: img/xe1.jpg)<input id="c_img"></label><img id="c_pv" style="max-width:160px;display:block;margin-bottom:12px">
 <button class="btn" id="c_save">Lưu xe</button> <button class="btn g" id="c_new">Làm mới</button></div><div id="c_list"></div></section>
+<section id="p-m" hidden><div class="box"><h3 id="m_h">Thêm combo</h3>
+<div class="row"><label>Tên combo (vd: Combo 1)<input id="m_name"></label><label>Thứ tự (số nhỏ hiện trước)<input id="m_order" type="number" value="0"></label></div>
+<label>Link ảnh combo (vd: img/combo1.jpg)<input id="m_img"></label><img id="m_pv" style="max-width:160px;display:block;margin-bottom:12px" hidden>
+<label>Chữ đính kèm dưới ảnh (nội dung / bảng giá)<textarea id="m_cap" rows="5"></textarea></label>
+<button class="btn" id="m_save">Lưu combo</button> <button class="btn g" id="m_new">Làm mới</button></div><div id="m_list"></div></section>
 <section id="p-b" hidden><div id="b_list"></div></section></div></div>
 <script type="module">
 import {auth,db,ADMIN_EMAIL} from './firebase-config.js';
@@ -35,10 +40,10 @@ const U=(v,old)=>v.trim()||(old&&old.startsWith('data:')?old:''),pv=(i,p)=>{cons
 const AE=(ADMIN_EMAIL||'').trim().toLowerCase(),L=t=>{$('le').className='err';$('le').textContent=t};
 $('gb').onclick=async()=>{try{await signInWithPopup(auth,new GoogleAuthProvider())}catch(x){L(x.code==='auth/popup-blocked'?'Trình duyệt chặn cửa sổ đăng nhập, hãy cho phép popup rồi thử lại.':x.code==='auth/unauthorized-domain'?'Chưa thêm domain github.io vào Authorized domains của Firebase.':'Đăng nhập không thành công: '+x.code)}};
 $('out').onclick=()=>signOut(auth);
-onAuthStateChanged(auth,u=>{if(u&&(u.email||'').toLowerCase()!==AE){signOut(auth);L('Tài khoản Google này không có quyền admin.');return}$('lg').hidden=!!u;$('app').hidden=!u;if(u){loadS();loadF();loadC();loadB()}});
+onAuthStateChanged(auth,u=>{if(u&&(u.email||'').toLowerCase()!==AE){signOut(auth);L('Tài khoản Google này không có quyền admin.');return}$('lg').hidden=!!u;$('app').hidden=!u;if(u){loadS();loadF();loadC();loadM();loadB()}});
 document.querySelector('.tabs').onclick=e=>{const t=e.target.dataset.t;if(!t)return;
  document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on',b===e.target));
- ['s','f','c','b'].forEach(k=>$('p-'+k).hidden=k!==t)};
+ ['s','f','c','m','b'].forEach(k=>$('p-'+k).hidden=k!==t)};
 /* Giới thiệu */
 const K=['brand','phone','intro','exp','customers','fleetTitle','roomTypes','roomLocs','fb','ig','privacy'];let av='';
 async function loadS(){const d=(await getDoc(doc(db,'settings','site'))).data()||{};K.forEach(k=>$('s_'+k).value=d[k]||'');av=d.avatar||'';$('f_note').value=d.ferryNote||'';$('s_av').value=av.startsWith('data:')?'':av;pv('s_av','s_pv');if(av.startsWith('data:')){$('s_pv').src=av;$('s_pv').hidden=false}}
@@ -72,6 +77,18 @@ $('f_seed').onclick=async()=>{if(!confirm('Nhập sẵn 4 tàu theo bảng giá?
  if(!$('f_note').value.trim()){const n=['• Quý khách vui lòng gửi ảnh mặt trước CCCD (1 CCCD chỉ xuất được 1 vé) và 1 số điện thoại người đại diện; trường hợp có người nước ngoài thì cung cấp passport.','• Mang theo CCCD (passport/hộ chiếu, visa bản gốc và còn hạn đối với khách nước ngoài) khi xuống tàu.','• Tàu hủy chuyến, đổi giờ quý khách sẽ được dời ngày, đổi giờ hoặc hoàn 100% tiền vé. Nếu khứ hồi cùng một tàu sẽ được hoàn cả 2 chuyến.','• Vui lòng có mặt trước bến tàu 30–45 phút trước giờ khởi hành.','• Tàu chạy khoảng 2 giờ 15 phút đến 2 giờ 30 phút, có trường hợp 2 giờ 45 phút tùy thời tiết.'].join('\n');
   $('f_note').value=n;await setDoc(doc(db,'settings','site'),{ferryNote:n},{merge:true})}
  loadF()};
+/* Combo */
+let cmb=[],mid=null;
+function mres(){mid=null;['name','img','cap'].forEach(k=>$('m_'+k).value='');$('m_order').value=0;$('m_h').textContent='Thêm combo';pv('m_img','m_pv')}
+async function loadM(){cmb=(await getDocs(collection(db,'combos'))).docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(a.order||0)-(b.order||0));
+ $('m_list').innerHTML=cmb.map(m=>`<div class="box"><b>${esc(m.name)}</b><br><button class="btn g" data-me="${m.id}">Sửa</button> <button class="btn g" data-md="${m.id}">Xóa</button></div>`).join('')||'<p class="mut">Chưa có combo.</p>'}
+$('m_img').oninput=()=>pv('m_img','m_pv');$('m_new').onclick=mres;mres();
+$('m_save').onclick=async()=>{if(!$('m_name').value.trim())return alert('Nhập tên combo');
+ const d={name:$('m_name').value.trim(),img:$('m_img').value.trim(),caption:$('m_cap').value,order:+$('m_order').value||0};
+ mid?await updateDoc(doc(db,'combos',mid),d):await addDoc(collection(db,'combos'),d);mres();loadM()};
+$('m_list').onclick=async e=>{const E=e.target.dataset.me,D=e.target.dataset.md;
+ if(E){const m=cmb.find(x=>x.id===E);mid=E;$('m_name').value=m.name||'';$('m_img').value=m.img||'';$('m_cap').value=m.caption||'';$('m_order').value=m.order||0;$('m_h').textContent='Sửa combo';pv('m_img','m_pv');scrollTo(0,0)}
+ if(D&&confirm('Xóa combo này?')){await deleteDoc(doc(db,'combos',D));loadM()}};
 /* Xe */
 let cars=[],eid=null,img='';
 const F=['name','cat','price','spec','desc','order'];
@@ -90,6 +107,7 @@ $('c_list').onclick=async e=>{const E=e.target.dataset.e,D=e.target.dataset.d;
 /* Đơn đặt */
 const ST={new:'Mới',confirmed:'Đã xác nhận',done:'Hoàn thành',cancelled:'Đã hủy'};
 const det=b=>b.type==='train'?`🚆 ${esc(b.from)} → ${esc(b.to)} × ${esc(b.qty)} vé<br><span class="mut">Đi: ${esc(b.date)}${b.back?' · Về: '+esc(b.back):''}</span>`
+ :b.type==='combo'?`🎁 ${esc(b.comboName)} × ${esc(b.qty)} combo<br><span class="mut">Đi: ${esc(b.date)} · Về: ${esc(b.back)}</span>`
  :b.type==='room'?`🏨 ${esc(b.roomType)}${b.roomLoc?' · '+esc(b.roomLoc):''} × ${esc(b.qty)} phòng, ${esc(b.guests)} khách<br><span class="mut">Nhận: ${esc(b.in)} → Trả: ${esc(b.out)}</span>`
  :`🚗 ${esc(b.car)} × ${esc(b.qty)}<br><span class="mut">Tàu ra đảo: ${esc(b.pickup).replace('T',' ')} → Tàu rời đảo: ${esc(b.ret).replace('T',' ')}</span>`;
 async function loadB(){const l=(await getDocs(query(collection(db,'bookings'),orderBy('createdAt','desc')))).docs;

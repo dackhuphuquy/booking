@@ -1,6 +1,6 @@
 <!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Duy Khanh Booking</title><link rel="stylesheet" href="style.css"></head><body>
-<header><div class="wrap nav"><nav><a class="t" href="#gioi-thieu">Giới thiệu</a><a class="t" href="#thong-tin-tau">Thông tin tàu</a><a class="t" href="#ve-tau">Đặt vé tàu</a><a class="t" href="#phong">Đặt phòng</a><a class="t" href="#thong-tin-xe">Thông tin xe</a><a class="t" href="#dat-xe">Đặt xe</a></nav></div></header>
+<title>Duy Khanh Booker</title><link rel="stylesheet" href="style.css"></head><body>
+<header><div class="wrap nav"><nav><a class="t" href="#gioi-thieu">Giới thiệu</a><a class="t" href="#thong-tin-combo">Thông tin combo</a><a class="t" href="#dat-combo">Đặt combo</a><a class="t" href="#thong-tin-tau">Thông tin tàu</a><a class="t" href="#ve-tau">Đặt vé tàu</a><a class="t" href="#phong">Đặt phòng</a><a class="t" href="#thong-tin-xe">Thông tin xe</a><a class="t" href="#dat-xe">Đặt xe</a></nav></div></header>
 <main class="wrap">
 <section data-v="gioi-thieu">
  <div class="hero"><div><h1 id="brand2"></h1><p class="mut pre" id="intro"></p>
@@ -39,6 +39,20 @@
 </section>
 <section data-v="thong-tin-xe" hidden>
  <h2 id="fleetT">Những xe mình cho thuê</h2><div class="f" id="f"></div><div class="grid" id="g"></div>
+</section>
+<section data-v="thong-tin-combo" hidden>
+ <h2>Thông tin combo</h2><div class="grid" id="cbl"></div>
+ <p><a class="btn" href="#dat-combo">Đặt combo</a></p>
+</section>
+<section data-v="dat-combo" hidden>
+ <h2>Đặt combo</h2><p class="mut">Điền thông tin, mình sẽ gọi lại xác nhận.</p>
+ <form data-bk="combo" novalidate>
+  <div class="row"><label>Ngày đi<input type="date" name="date"></label><label>Ngày về<input type="date" name="back"></label></div>
+  <div class="row"><label>Số người (= số combo)<input type="number" name="qty" min="1" value="1"></label><label>Loại combo<select name="comboName" id="cb"></select></label></div>
+  <div class="row"><label>Họ tên<input name="name" autocomplete="name"></label><label>Số điện thoại<input name="phone" type="tel" autocomplete="tel"></label></div>
+  <label>Ghi chú<textarea name="note" rows="3"></textarea></label>
+  <label class="ck"><input type="checkbox" name="consent" value="1"><span>Tôi đồng ý với <a href="#" class="pvl">Chính sách bảo mật</a> và cho phép xử lý thông tin này để liên hệ, xác nhận đặt chỗ.</span></label>
+  <p class="err"></p><button class="btn">Gửi yêu cầu</button></form>
 </section>
 <section data-v="dat-xe" hidden>
  <h2>Đặt xe</h2><p class="mut">Điền thông tin, mình sẽ gọi lại xác nhận sớm.</p>
@@ -90,6 +104,12 @@ function renderF(){
  $('fe').innerHTML=ferries.map(f=>`<div class="box fer">${f.img?`<img loading="lazy" src="${esc(f.img)}" alt="${esc(f.name)}">`:''}<h3>${esc(f.name)}</h3><p class="mut pre">${esc(f.info)}</p>
  <div class="tw"><table><tr><th>Loại vé</th>${COLS.map(c=>`<th>${c[1]}</th>`).join('')}</tr>${(f.prices||[]).map(r=>`<tr><td>${esc(r.type)}</td>${COLS.map(c=>`<td>${esc(r[c[0]])||'—'}</td>`).join('')}</tr>`).join('')}</table></div></div>`).join('')||'<p class="mut">Chưa có thông tin tàu.</p>'}
 onSnapshot(collection(db,'ferries'),q=>{ferries=q.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(a.order||0)-(b.order||0));renderF()},e=>console.error(e));
+let combos=[];
+function renderCb(){
+ $('cbl').innerHTML=combos.map(c=>`<div class="box cbc">${c.img?`<img loading="lazy" data-z="1" src="${esc(c.img)}" alt="${esc(c.name)}">`:''}<b>${esc(c.name)}</b><p class="mut pre small">${esc(c.caption)}</p></div>`).join('')||'<p class="mut">Chưa có combo.</p>';
+ fill('cb',combos.map(c=>`<option>${esc(c.name)}</option>`).join('')||'<option value="">Chưa có combo</option>')}
+$('cbl').onclick=e=>{if(e.target.dataset.z){$('lbI').src=e.target.src;$('lb').showModal()}};
+onSnapshot(collection(db,'combos'),q=>{combos=q.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(a.order||0)-(b.order||0));renderCb()},e=>console.error(e));
 let cur;
 $('g').onclick=e=>{const c=cars.find(x=>x.id===e.target.dataset.i);if(!c)return;cur=c;
  $('dI').src=c.img||'';$('dI').hidden=!c.img;$('dZ').hidden=!c.img;$('dN').textContent=c.name;$('dP').textContent=c.price||'';$('dS').textContent=c.spec||'';$('dD').textContent=c.desc||'';$('dlg').showModal()};
@@ -112,16 +132,16 @@ $('bk').onsubmit=async e=>{e.preventDefault();const m=[];
   notify(`🚗 Đơn đặt xe mới: ${$('car').value} x${$('qty').value}\nTàu ra đảo: ${$('pk').value.replace('T',' ')}\nTàu rời đảo: ${$('rt').value.replace('T',' ')}\nMở admin để xem thông tin khách.`);
   $('bkb').innerHTML='<h3 class="ok">Đã gửi yêu cầu!</h3><p class="mut">Mình sẽ gọi lại số bạn để xác nhận.</p>'}
  catch(x){$('err').textContent='Gửi thất bại, vui lòng thử lại hoặc gọi trực tiếp.'}};
-const REQ={train:['from','to','date','name','phone'],room:['in','out','name','phone']};
-const N={from:'Điểm đi',to:'Điểm đến',date:'Ngày đi',back:'Ngày về',qty:'Số lượng',in:'Nhận phòng',out:'Trả phòng',guests:'Số khách',roomType:'Loại phòng',roomLoc:'Vị trí phòng',name:'Họ tên',phone:'SĐT',note:'Ghi chú'};
-const SAFE=['from','to','date','back','qty','in','out','guests','roomType','roomLoc'];
-const TT={train:'🚆 Đơn vé tàu mới',room:'🏨 Đơn đặt phòng mới'};
+const REQ={train:['from','to','date','name','phone'],room:['in','out','name','phone'],combo:['date','back','comboName','name','phone']};
+const N={from:'Điểm đi',to:'Điểm đến',date:'Ngày đi',back:'Ngày về',qty:'Số lượng',in:'Nhận phòng',out:'Trả phòng',guests:'Số khách',roomType:'Loại phòng',roomLoc:'Vị trí phòng',comboName:'Loại combo',name:'Họ tên',phone:'SĐT',note:'Ghi chú'};
+const SAFE=['from','to','date','back','qty','in','out','guests','roomType','roomLoc','comboName'];
+const TT={train:'🚆 Đơn vé tàu mới',room:'🏨 Đơn đặt phòng mới',combo:'🎁 Đơn đặt combo mới'};
 document.querySelectorAll('form[data-bk]').forEach(f=>f.onsubmit=async e=>{e.preventDefault();
  const t=f.dataset.bk,d=Object.fromEntries(new FormData(f)),err=f.querySelector('.err'),m=REQ[t].filter(k=>!String(d[k]||'').trim()).map(k=>N[k].toLowerCase());
  if(d.phone&&!/^0\d{9,10}$/.test(d.phone.replace(/\s/g,'')))m.push('số điện thoại 10–11 số');
  if(!d.consent)m.push('đồng ý Chính sách bảo mật');
  if(t==='room'&&d.in&&d.out&&d.out<=d.in)m.push('ngày trả phải sau ngày nhận');
- if(t==='train'&&d.date&&d.back&&d.back<d.date)m.push('ngày về phải sau ngày đi');
+ if((t==='train'||t==='combo')&&d.date&&d.back&&d.back<d.date)m.push('ngày về phải sau ngày đi');
  if(m.length){err.textContent='Cần kiểm tra: '+m.join(', ')+'.';return}
  err.textContent='';
  try{await addDoc(collection(db,'bookings'),{...d,type:t,consent:true,status:'new',createdAt:serverTimestamp()});
