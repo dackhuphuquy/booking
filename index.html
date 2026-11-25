@@ -1,155 +1,253 @@
-<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0e6b7c">
 <title>Duy Khanh Booker</title><link rel="stylesheet" href="style.css"></head><body>
-<header><div class="wrap nav"><nav><a class="t" href="#gioi-thieu">Giới thiệu</a><a class="t" href="#thong-tin-combo">Thông tin combo</a><a class="t" href="#dat-combo">Đặt combo</a><a class="t" href="#thong-tin-tau">Thông tin tàu</a><a class="t" href="#ve-tau">Đặt vé tàu</a><a class="t" href="#phong">Đặt phòng</a><a class="t" href="#thong-tin-xe">Thông tin xe</a><a class="t" href="#dat-xe">Đặt xe</a></nav></div></header>
-<main class="wrap">
-<section data-v="gioi-thieu">
- <div class="hero"><div><h1 id="brand2"></h1><p class="mut pre" id="intro"></p>
-  <p><a class="btn" id="call" href="#" hidden>Gọi / Zalo</a> <a class="btn" id="fb" href="#" target="_blank" rel="noopener" hidden>Facebook</a> <a class="btn" id="ig" href="#" target="_blank" rel="noopener" hidden>Instagram</a></p></div>
-  <img class="av" id="av" alt="Ảnh đại diện"></div>
- <div class="block" id="expB" hidden><h2>Kinh nghiệm</h2><p class="mut pre" id="exp"></p></div>
- <div class="block" id="cusB" hidden><h2>Khách hàng</h2><div class="chips" id="cus"></div></div>
- </section>
+<div class="hx" id="hx"><div class="hx-top">
+ <div class="bpill"><img id="logo" alt="" hidden><div><b id="brandN">Duy Khanh Booker</b><small id="tag2"></small></div></div>
+ <div class="hx-btns"><a class="ib d" href="admin.html" aria-label="Admin">🔒</a><a class="ib" href="#cm" aria-label="Danh mục">☰</a></div></div>
+ <div class="hx-b"><div class="bds"><span class="bd" id="bdg" hidden>✓ <span id="badge"></span></span><span class="bd" id="plc" hidden></span></div>
+ <h1 id="brand2">Duy Khanh Booker</h1><p id="sub"></p>
+ <a class="hot" id="call" href="#" hidden>📞 <span id="callT"></span></a></div></div>
+<div class="hm">
+ <div class="ch" id="ch"></div>
+ <div class="eb">DỊCH VỤ CỦA MÌNH</div>
+ <div class="shd"><h2 id="cm">Chọn dịch vụ bạn cần</h2><span class="mut" id="cnt"></span></div>
+ <div class="cg" id="cg"></div>
+ <div class="fi"><div class="fi-h"><img id="flogo" alt="" hidden><div><b id="fowner"></b><span class="fm" id="ftag"></span></div></div>
+  <p id="frespP"><b>Phụ trách:</b> <span id="fresp"></span></p>
+  <p id="ftelP"><b>Hotline / Zalo:</b> <a id="ftela" href="#"></a></p>
+  <p id="faddrP"><b>Địa chỉ:</b> <span id="faddr"></span></p>
+  <div class="fn"><small>ĐIỀU HƯỚNG NHANH</small><div class="fng" id="fnav"></div></div>
+  <a class="zlb js-zl" href="#" target="_blank" rel="noopener"><i>Zalo</i><div><b>Nhắn Zalo</b><small class="zlt">Mở chat trực tiếp</small></div></a>
+  <div class="c2"><a class="btn js-tl" href="#">📞 Gọi ngay</a><a class="btn g js-fb" href="#" target="_blank" rel="noopener" hidden>Facebook</a></div>
+  <div class="fb2"><span id="fbrand"></span><a href="admin.html">🔒 Quản trị</a></div></div>
+</div>
+<div class="bar"><a class="a1" id="call2" href="#">📞 Gọi / Zalo</a><a class="a2" href="#dat">Đặt dịch vụ</a></div>
+<div id="bd"></div>
+<main>
+<section data-v="dat" hidden>
+ <h2>Đặt dịch vụ</h2><p class="mut">Gửi yêu cầu, mình sẽ liên hệ tư vấn và giữ chỗ cho bạn.</p>
+ <form id="sf" novalidate>
+  <label>Dịch vụ bạn quan tâm *<input id="sv" list="svl" placeholder="Chọn hoặc nhập (vd: vé tàu, phòng, xe, combo...)" autocomplete="off"><datalist id="svl"></datalist></label>
+  <div class="row"><label>Ngày đi<input type="date" id="sd"></label><label>Ngày về<input type="date" id="sb"></label></div>
+  <div class="row"><label>Số người<input type="number" id="sq" min="1" placeholder="vd: 2"></label><label>Số điện thoại *<input type="tel" id="sp" placeholder="09xx..." autocomplete="tel"></label></div>
+  <label>Họ tên (không bắt buộc)<input id="sn" autocomplete="name"></label>
+  <label>Ghi chú thêm<textarea id="sm" rows="3" placeholder="Vd: cần đón tại cảng, thích phòng view biển, hỏi giờ tàu..."></textarea></label>
+  <label class="ck"><input type="checkbox" id="sck"><span>Tôi đồng ý với <a href="#" class="pvl">Chính sách bảo mật</a> và cho phép xử lý thông tin này để liên hệ, xác nhận đặt chỗ.</span></label>
+  <p class="err" id="se"></p><button class="btn wide" id="sbtn">Gửi yêu cầu</button>
+  <div id="sok" hidden></div>
+ </form>
+ <div class="sep">Cần nhanh? Liên hệ trực tiếp:</div>
+ <a class="zlb js-zl" href="#" target="_blank" rel="noopener"><i>Zalo</i><div><b>Nhắn Zalo (kênh chính)</b><small class="zlt">Mở chat trực tiếp</small></div></a>
+ <div class="c2"><a class="btn js-tl" href="#">📞 Gọi ngay</a><a class="btn g js-fb" href="#" target="_blank" rel="noopener" hidden>Facebook</a></div>
+</section>
 <section data-v="thong-tin-tau" hidden>
- <h2>Thông tin tàu</h2><div id="fe"></div>
+ <h2>Lịch tàu & Bảng giá vé</h2>
+ <p class="mut">Xem lịch tàu theo tháng, chọn hãng tàu để xem chi tiết và bảng giá.</p>
+ <div class="box"><div class="eb">TRA CỨU NHANH</div><h3>Lịch tàu theo tháng</h3><div class="mon" id="mon"></div><div id="monImg"></div></div>
+ <div class="eb" id="fcount" style="margin:16px 0 8px"></div><div class="fsel" id="fsel"></div>
+ <div class="box" id="fdet" hidden></div>
+ <div class="eb" style="margin-top:18px">BẢNG GIÁ VÉ NIÊM YẾT</div><h3>Bảng giá vé các hãng tàu</h3><div id="fe"></div>
  <div class="block" id="fnoteB" hidden><h3>Lưu ý</h3><p class="mut pre" id="fnote"></p></div>
- <p><a class="btn" href="#ve-tau">Đặt vé tàu</a></p>
-</section>
-<section data-v="ve-tau" hidden>
- <h2>Đặt vé tàu</h2><p class="mut">Điền thông tin, mình sẽ gọi lại báo giá và xác nhận.</p>
- <form data-bk="train" novalidate>
-  <div class="row"><label>Điểm đi<input name="from"></label><label>Điểm đến<input name="to"></label></div>
-  <div class="row"><label>Ngày đi<input type="date" name="date"></label><label>Ngày về (nếu khứ hồi)<input type="date" name="back"></label></div>
-  <label>Số vé<input type="number" name="qty" min="1" value="1"></label>
-  <div class="row"><label>Họ tên<input name="name" autocomplete="name"></label><label>Số điện thoại<input name="phone" type="tel" autocomplete="tel"></label></div>
-  <label>Ghi chú (giờ tàu mong muốn, tên hành khách...)<textarea name="note" rows="3"></textarea></label>
-  <label class="ck"><input type="checkbox" name="consent" value="1"><span>Tôi đồng ý với <a href="#" class="pvl">Chính sách bảo mật</a> và cho phép xử lý thông tin này để liên hệ, xác nhận đặt chỗ.</span></label>
-  <p class="err"></p><button class="btn">Gửi yêu cầu</button></form>
-</section>
-<section data-v="phong" hidden>
- <h2>Đặt phòng</h2><p class="mut">Điền thông tin, mình sẽ gọi lại xác nhận phòng và giá.</p>
- <form data-bk="room" novalidate>
-  <div class="row"><label>Ngày nhận phòng<input type="date" name="in"></label><label>Ngày trả phòng<input type="date" name="out"></label></div>
-  <div class="row"><label>Số phòng<input type="number" name="qty" min="1" value="1"></label><label>Số khách<input type="number" name="guests" min="1" value="2"></label></div>
-  <label>Loại phòng<select name="roomType" id="rtype"></select></label>
-  <label>Vị trí phòng<select name="roomLoc" id="rloc"></select></label>
-  <div class="row"><label>Họ tên<input name="name" autocomplete="name"></label><label>Số điện thoại<input name="phone" type="tel" autocomplete="tel"></label></div>
-  <label>Ghi chú<textarea name="note" rows="3"></textarea></label>
-  <label class="ck"><input type="checkbox" name="consent" value="1"><span>Tôi đồng ý với <a href="#" class="pvl">Chính sách bảo mật</a> và cho phép xử lý thông tin này để liên hệ, xác nhận đặt chỗ.</span></label>
-  <p class="err"></p><button class="btn">Gửi yêu cầu</button></form>
+ <p><a class="btn wide" href="#dat" data-pre="Vé tàu">🎫 Đặt vé tàu</a></p>
 </section>
 <section data-v="thong-tin-xe" hidden>
- <h2 id="fleetT">Những xe mình cho thuê</h2><div class="f" id="f"></div><div class="grid" id="g"></div>
+ <h2 id="fleetT">Thuê xe</h2>
+ <div class="box adv" id="ruleB" hidden><h3>1. Cách tính ngày thuê</h3><div class="rt" id="rule"></div></div>
+ <h3>2. Bảng giá thuê xe</h3><div class="plist" id="plist"></div>
+ <h3>Thông tin chi tiết từng loại xe</h3><div class="g2" id="g"></div>
 </section>
 <section data-v="thong-tin-combo" hidden>
- <h2>Thông tin combo</h2><div class="grid" id="cbl"></div>
- <p><a class="btn" href="#dat-combo">Đặt combo</a></p>
+ <h2>Combo dịch vụ</h2><div class="g2" id="cbl"></div>
 </section>
-<section data-v="dat-combo" hidden>
- <h2>Đặt combo</h2><p class="mut">Điền thông tin, mình sẽ gọi lại xác nhận.</p>
- <form data-bk="combo" novalidate>
-  <div class="row"><label>Ngày đi<input type="date" name="date"></label><label>Ngày về<input type="date" name="back"></label></div>
-  <div class="row"><label>Số người (= số combo)<input type="number" name="qty" min="1" value="1"></label><label>Loại combo<select name="comboName" id="cb"></select></label></div>
-  <div class="row"><label>Họ tên<input name="name" autocomplete="name"></label><label>Số điện thoại<input name="phone" type="tel" autocomplete="tel"></label></div>
-  <label>Ghi chú<textarea name="note" rows="3"></textarea></label>
-  <label class="ck"><input type="checkbox" name="consent" value="1"><span>Tôi đồng ý với <a href="#" class="pvl">Chính sách bảo mật</a> và cho phép xử lý thông tin này để liên hệ, xác nhận đặt chỗ.</span></label>
-  <p class="err"></p><button class="btn">Gửi yêu cầu</button></form>
+<section data-v="trang" hidden><h2 id="pgT"></h2><div id="pgB"></div></section>
+<section data-v="gioi-thieu" hidden>
+ <h2>Giới thiệu về mình</h2>
+ <p class="mut pre" id="intro"></p>
+ <div class="box"><div class="pf-h"><img id="av" alt="" hidden><div><span class="bdg2" id="pbadge" hidden></span><h3 id="pname"></h3><span class="mut" id="pbirth"></span></div></div><div class="rt" id="pbody"></div></div>
+ <div class="box" id="ptsB" hidden><h3 id="ptsT"></h3><div class="pts" id="pts"></div></div>
+ <div id="plinks"></div>
+ <div class="block" id="cusB" hidden><h3>Khách hàng</h3><div class="chips" id="cus"></div></div>
+ <p><a class="btn" id="fb" href="#" target="_blank" rel="noopener" hidden>Facebook</a> <a class="btn" id="ig" href="#" target="_blank" rel="noopener" hidden>Instagram</a></p>
 </section>
-<section data-v="dat-xe" hidden>
- <h2>Đặt xe</h2><p class="mut">Điền thông tin, mình sẽ gọi lại xác nhận sớm.</p>
- <form id="bk" novalidate><div id="bkb">
-  <div class="row"><label>Ngày giờ tàu chạy (ra đảo)<input type="datetime-local" id="pk"></label><label>Ngày giờ tàu chạy (rời đảo)<input type="datetime-local" id="rt"></label></div>
-  <div class="row"><label>Họ tên<input id="nm" autocomplete="name"></label><label>Số điện thoại<input id="ph" type="tel" autocomplete="tel"></label></div>
-  <div class="row"><label>Số lượng xe<input id="qty" type="number" min="1" value="1"></label><label>Loại xe<select id="car"></select></label></div>
-  <label>Ghi chú<textarea id="note" rows="3"></textarea></label>
-  <label class="ck"><input type="checkbox" id="ck"><span>Tôi đồng ý với <a href="#" class="pvl">Chính sách bảo mật</a> và cho phép xử lý thông tin này để liên hệ, xác nhận đặt chỗ.</span></label>
-  <p class="err" id="err"></p><button class="btn">Gửi yêu cầu</button></div></form>
-</section></main>
-<dialog id="dlg"><img id="dI" alt=""><div class="b"><h3 id="dN"></h3><p><b id="dP" style="color:var(--acc)"></b></p>
-<p class="mut" id="dS"></p><p class="pre" id="dD"></p><button class="btn" id="dB">Đặt xe này</button> <button class="btn g" id="dZ">Xem toàn ảnh</button> <button class="btn g" id="dX">Đóng</button></div></dialog>
-<dialog id="lb"><img id="lbI" alt=""><button class="btn">✕ Đóng</button></dialog>
+</main>
+<dialog id="idl"><div class="ph1" id="iPh"><img id="iI" alt=""><span class="pb l" id="iBd"></span></div><div class="b"><h3 id="iN"></h3><p class="acc" id="iP"></p><div class="rt" id="iD"></div><div class="c2" id="iBt"></div><p><button class="btn g wide" id="iX">Đóng</button></p></div></dialog>
+<dialog id="lb"><img id="lbI" alt=""><button class="btn" id="lbX">✕ Đóng</button><button class="lbn l" id="lbP">‹</button><button class="lbn r" id="lbN">›</button><div class="lbc" id="lbC"></div></dialog>
 <dialog id="pv"><div class="b"><h3>Chính sách bảo mật</h3><p class="pre mut" id="pvT"></p><button class="btn" id="pvX">Đóng</button></div></dialog>
 <script type="module">
 import {db,NOTIFY} from './firebase-config.js';
 import {doc,onSnapshot,collection,addDoc,serverTimestamp} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 const $=i=>document.getElementById(i),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-let cars=[],cat='all',s={},ferries=[];
-const opt=(t,d)=>(t||d).split('\n').map(x=>x.trim()).filter(Boolean).map(x=>`<option>${esc(x)}</option>`).join('');
-const fill=(id,h)=>{const v=$(id).value;$(id).innerHTML=h;if(v)$(id).value=v};
+const lines=t=>String(t||'').split('\n').map(x=>x.trim()).filter(Boolean);
+const ext=u=>/^https?:\/\//i.test(u)?u:'https://'+u;
+const dg=x=>(x||'').replace(/[^\d+]/g,'');
+const pad=n=>String(n).padStart(2,'0');
+const rich=(t,all)=>{let h='',ul=false;for(const l of lines(t)){const b=all||/^[-•*+]\s+/.test(l);if(b){if(!ul){h+='<ul>';ul=true}h+='<li>'+esc(l.replace(/^[-•*+]\s+/,''))+'</li>'}else{if(ul){h+='</ul>';ul=false}h+='<p>'+esc(l)+'</p>'}}return h+(ul?'</ul>':'')};
+let s={},cars=[],ferries=[],combos=[],pages=[],sent=null,HL=[],fi=0,fm=new Date().getMonth()+1,pf='',pi=0,cs='';
+const G={};const zA=(k,a)=>{G[k]=(a||[]).filter(Boolean);return k};
+/* ---------- Ảnh xem lớn (vuốt qua lại) ---------- */
+let LB=[],li=0,tx=0;
+function lbShow(){const n=LB.length;$('lbI').src=LB[li];$('lbP').hidden=$('lbN').hidden=n<2;$('lbC').textContent=n>1?(li+1)+' / '+n:''}
+function openLb(a,i){LB=(a||[]).filter(Boolean);if(!LB.length)return;li=Math.min(i||0,LB.length-1);lbShow();$('lb').showModal()}
+$('lb').onclick=e=>{const n=LB.length;if(e.target.id==='lbP'){li=(li-1+n)%n;lbShow()}else if(e.target.id==='lbN'){li=(li+1)%n;lbShow()}else $('lb').close()};
+$('lbI').addEventListener('touchstart',e=>{tx=e.changedTouches[0].clientX},{passive:true});
+$('lbI').addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-tx,n=LB.length;if(Math.abs(d)>50&&n>1){li=(li+(d<0?1:-1)+n)%n;lbShow()}},{passive:true});
+/* ---------- Hộp chi tiết ---------- */
+function openItem(o){const im=(o.imgs||[]).filter(Boolean);$('iPh').hidden=!im.length;if(im.length){$('iI').src=im[0];$('iI').dataset.z=zA('item',im);$('iI').dataset.i=0}
+ $('iBd').textContent=o.badge||'';$('iBd').hidden=!o.badge;$('iN').textContent=o.title||'';$('iP').textContent=o.price||'';$('iD').innerHTML=o.body||'';
+ $('iBt').innerHTML=(o.link?`<a class="btn g" href="${esc(ext(o.link))}" target="_blank" rel="noopener">📍 Chỉ đường</a>`:'')+(o.pre?`<a class="btn" href="#dat" data-pre="${esc(o.pre)}">${esc(o.label||'Đặt ngay')}</a>`:'');$('idl').showModal()}
+$('iX').onclick=()=>$('idl').close();
+const itemOf=(p,x)=>({title:x.name,price:x.sub,badge:x.tag,body:rich(x.desc),imgs:[x.img,...lines(x.imgs)],link:x.link,pre:p.cta?x.name:'',label:p.cta?(p.ctaLabel||'Đặt {name}').replace('{name}',x.name):''});
+document.addEventListener('click',e=>{
+ const pre=e.target.closest('[data-pre]');if(pre){$('sv').value=pre.dataset.pre;if(pre.closest('#idl'))$('idl').close()}
+ const z=e.target.closest('[data-z]');if(z){openLb(G[z.dataset.z],+z.dataset.i||0);return}
+ const it=e.target.closest('[data-it]');if(it){const[pid,i]=it.dataset.it.split(':'),p=pages.find(x=>x.id===pid),x=p&&(p.items||[])[+i];if(x)openItem(itemOf(p,x));return}
+ const cb=e.target.closest('[data-cb]');if(cb){const c=combos[+cb.dataset.cb];if(c)openItem({title:c.name,price:c.price||'Liên hệ báo giá',badge:c.badge,body:rich(c.caption),imgs:[c.img,...lines(c.imgs)],pre:c.name,label:'🎁 Nhận ưu đãi & báo giá '+c.name})}});
+/* ---------- Thông tin chung ---------- */
 function renderS(){
- const brand=s.brand||'Duy Khanh Booker';document.title=brand;$('brand2').textContent=brand;
- $('intro').textContent=s.intro||'';if(s.avatar){$('av').src=s.avatar;$('av').hidden=false}else $('av').hidden=true;
- $('expB').hidden=!s.exp;$('exp').textContent=s.exp||'';
- const cl=(s.customers||'').split('\n').map(x=>x.trim()).filter(Boolean);
- $('cusB').hidden=!cl.length;$('cus').innerHTML=cl.map(x=>`<span>${esc(x)}</span>`).join('');
- $('call').hidden=!s.phone;if(s.phone)$('call').href='tel:'+s.phone.replace(/\s/g,'');
- [['fb','fb'],['ig','ig']].forEach(([i,k])=>{$(i).hidden=!s[k];if(s[k])$(i).href=/^https?:\/\//i.test(s[k])?s[k]:'https://'+s[k]});
- $('fleetT').textContent=s.fleetTitle||'Những xe mình cho thuê';
+ const brand=s.brand||'Duy Khanh Booker';document.title=brand;$('brand2').textContent=brand;$('brandN').textContent=brand;
+ $('tag2').textContent=s.badge||'';$('badge').textContent=s.badge||'';$('bdg').hidden=!s.badge;
+ const pl=s.place===undefined?'Đảo Phú Quý':s.place;$('plc').textContent=pl;$('plc').hidden=!pl;
+ $('sub').textContent=s.tagline||'';
+ $('hx').style.backgroundImage='linear-gradient(180deg,rgba(6,50,66,.35),rgba(6,70,88,.6) 45%,rgba(8,84,100,.96))'+(s.heroImg?`,url("${s.heroImg.replace(/["\\()]/g,'')}")`:'');
+ const lg=s.logo||s.avatar;$('logo').hidden=!lg;$('flogo').hidden=!lg;if(lg){$('logo').src=lg;$('flogo').src=lg}
+ const tel=dg(s.phone),z=tel.replace(/^\+?84/,'0');
+ $('call').hidden=!tel;$('callT').textContent='Hotline / Zalo: '+(s.phone||'');$('call').href=tel?'tel:'+tel:'#';$('call2').href=tel?'tel:'+tel:'#';
+ document.querySelectorAll('.js-zl').forEach(a=>{a.href=tel?'https://zalo.me/'+z:'#';a.hidden=!tel});
+ document.querySelectorAll('.zlt').forEach(x=>x.textContent=s.phone||'Mở chat trực tiếp');
+ document.querySelectorAll('.js-tl').forEach(a=>{a.href=tel?'tel:'+tel:'#';a.hidden=!tel});
+ const url=k=>s[k]?ext(s[k]):'';
+ document.querySelectorAll('.js-fb').forEach(a=>{a.hidden=!url('fb');a.href=url('fb')||'#'});
+ [['fb','fb'],['ig','ig']].forEach(([i,k])=>{$(i).hidden=!s[k];if(s[k])$(i).href=url(k)});
+ $('fowner').textContent=(s.owner||brand)+(s.badge?' • '+s.badge:'');$('ftag').textContent=s.tagline?' '+s.tagline:'';
+ $('fresp').textContent=s.owner||'';$('frespP').hidden=!s.owner;
+ $('ftela').textContent=s.phone||'';$('ftela').href=tel?'tel:'+tel:'#';$('ftelP').hidden=!s.phone;
+ $('faddr').textContent=s.address||'';$('faddrP').hidden=!s.address;$('fbrand').textContent=brand;
+ $('intro').textContent=s.intro||'';
+ if(s.avatar){$('av').src=s.avatar;$('av').hidden=false}else $('av').hidden=true;
+ $('pbadge').textContent=s.badge||'';$('pbadge').hidden=!s.badge;$('pname').textContent=s.owner||brand;$('pbirth').textContent=s.birth?'Năm sinh: '+s.birth:'';
+ $('pbody').innerHTML=(s.address?`<p><b>Địa chỉ:</b> ${esc(s.address)}</p>`:'')+(s.edu?'<h4>Học vấn:</h4>'+rich(s.edu,1):'')+(s.exp?'<h4>Quản lý & Kinh nghiệm:</h4>'+rich(s.exp,1):'');
+ $('ptsB').hidden=!s.points;$('ptsT').textContent=s.pointsTitle||'';$('pts').innerHTML=lines(s.points).map(l=>'<p>'+esc(l)+'</p>').join('');
+ $('plinks').innerHTML=lines(s.links).map(l=>{const[n,u]=l.split('|').map(x=>x.trim());return u?`<a class="lk" href="${esc(ext(u))}" target="_blank" rel="noopener"><span>${esc(n)}</span><span>↗</span></a>`:''}).join('');
+ const cl=lines(s.customers);$('cusB').hidden=!cl.length;$('cus').innerHTML=cl.map(x=>`<span>${esc(x)}</span>`).join('');
+ $('fleetT').textContent=s.fleetTitle||'Thuê xe';
+ $('ruleB').hidden=!s.carRules;$('rule').innerHTML=rich(s.carRules,1);
  $('fnoteB').hidden=!s.ferryNote;$('fnote').textContent=s.ferryNote||'';
- fill('rtype',opt(s.roomTypes,'Phòng đơn\nPhòng đôi\nPhòng gia đình'));
- fill('rloc',opt(s.roomLocs,'Trung tâm\nView biển'));
-}
-function show(){
- const cats=[...new Set(cars.map(c=>c.category).filter(Boolean))];if(cat!=='all'&&!cats.includes(cat))cat='all';
- $('f').innerHTML=['all',...cats].map(c=>`<button class="${c===cat?'on':''}" data-c="${esc(c)}">${c==='all'?'Tất cả':esc(c)}</button>`).join('');
- let l;if(cat==='all'){const p=cars.filter(c=>c.pinned);l=(p.length?p:cars).slice(0,4)}else l=cars.filter(c=>c.category===cat);
- $('g').innerHTML=l.map(c=>`<div class="card"><img loading="lazy" src="${esc(c.img)}" alt="${esc(c.name)}"><div class="b"><b>${esc(c.name)}</b><span class="mut">${esc(c.price)}</span><button class="btn g" data-i="${c.id}">Xem thêm</button></div></div>`).join('')||'<p class="mut">Chưa có xe.</p>';
- fill('car',cars.map(c=>`<option>${esc(c.name)}</option>`).join('')||'<option>Chưa có xe</option>');
-}
-$('f').onclick=e=>{if(e.target.dataset.c){cat=e.target.dataset.c;show()}};
-/* Tự cập nhật: khi admin lưu, trang khách đổi ngay không cần tải lại */
-onSnapshot(doc(db,'settings','site'),d=>{s=d.data()||{};renderS()},e=>console.error(e));
-onSnapshot(collection(db,'cars'),q=>{cars=q.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(a.order||0)-(b.order||0));show()},e=>console.error(e));
+ renderF()}
+/* ---------- 01 Lịch tàu & bảng giá ---------- */
 const COLS=[['adult','Người lớn'],['local','Người địa phương'],['senior','Cao tuổi (từ 60)'],['disabled','Khuyết tật'],['child','Trẻ em (6–11)']];
 function renderF(){
- $('fe').innerHTML=ferries.map(f=>`<div class="box fer">${f.img?`<img loading="lazy" src="${esc(f.img)}" alt="${esc(f.name)}">`:''}<h3>${esc(f.name)}</h3><p class="mut pre">${esc(f.info)}</p>
- <div class="tw"><table><tr><th>Loại vé</th>${COLS.map(c=>`<th>${c[1]}</th>`).join('')}</tr>${(f.prices||[]).map(r=>`<tr><td>${esc(r.type)}</td>${COLS.map(c=>`<td>${esc(r[c[0]])||'—'}</td>`).join('')}</tr>`).join('')}</table></div></div>`).join('')||'<p class="mut">Chưa có thông tin tàu.</p>'}
-onSnapshot(collection(db,'ferries'),q=>{ferries=q.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(a.order||0)-(b.order||0));renderF()},e=>console.error(e));
-let combos=[];
+ const M=(s.monthImgs||'').split('\n').map(x=>x.trim()),mi=M[fm-1];
+ $('mon').innerHTML=Array.from({length:12},(_,i)=>`<button class="${i+1===fm?'on':''}" data-m="${i+1}">Tháng ${pad(i+1)}</button>`).join('');
+ $('monImg').innerHTML=mi?`<img class="zimg" loading="lazy" data-z="${zA('mon',[mi])}" src="${esc(mi)}" alt=""><div class="zh">🔍 Lịch tháng ${fm} • Bấm để phóng to</div>`:`<p class="mut">Chưa có lịch tháng ${fm}. Liên hệ để được báo lịch tàu.</p>`;
+ $('fcount').textContent=`CHỌN HÃNG TÀU (${ferries.length} TÀU)`;
+ if(fi>=ferries.length)fi=0;
+ $('fsel').innerHTML=ferries.map((f,i)=>`<button class="fc ${i===fi?'on':''}" data-f="${i}">${f.img?`<img src="${esc(f.img)}" alt="">`:'<i>🚢</i>'}<span><b>${esc(f.name)}</b><small>${esc(f.info)}</small></span></button>`).join('');
+ const f=ferries[fi];$('fdet').hidden=!f;
+ if(f){const sch=lines(f.schedule),ph=lines(f.photos);
+  $('fdet').innerHTML=`<div class="eb">CHI TIẾT HÃNG TÀU</div><h3>${esc(f.name)}</h3>`
+  +(sch.length?`<img class="zimg" loading="lazy" data-z="${zA('fs',sch)}" src="${esc(sch[0])}" alt=""><div class="zh">🔍 Lịch chạy (${sch.length} ảnh) • Bấm để xem lớn</div>`:'')
+  +(ph.length?`<h4>Hình ảnh ${esc(f.name)} (${ph.length} ảnh)</h4><div class="ph">${ph.map((u,i)=>`<img loading="lazy" data-z="${zA('fp',ph)}" data-i="${i}" src="${esc(u)}" alt="">`).join('')}</div>`:'')
+  +`<a class="btn wide" href="#dat" data-pre="Vé tàu ${esc(f.name)}">🎫 Đặt vé ${esc(f.name)} ngay</a>`}
+ $('fe').innerHTML=ferries.map(f=>{const rows=f.prices||[],aud=COLS.filter(c=>rows.some(r=>String(r[c[0]]||'').trim()));
+  return `<div class="box"><div class="fh">${f.img?`<img src="${esc(f.img)}" alt="">`:''}<h3>${esc(f.name)}</h3>${f.promo?`<span class="pill">${esc(f.promo)}</span>`:''}</div><div class="tw"><table><tr><th>Đối tượng</th>${rows.map(r=>`<th>${esc(r.type)}</th>`).join('')}</tr>${aud.map(c=>`<tr><td>${c[1]}</td>${rows.map(r=>`<td>${esc(r[c[0]])||'—'}</td>`).join('')}</tr>`).join('')}</table></div></div>`}).join('')||'<p class="mut">Chưa có bảng giá.</p>';
+ renderHome()}
+$('mon').onclick=e=>{const m=e.target.closest('[data-m]');if(m){fm=+m.dataset.m;renderF()}};
+$('fsel').onclick=e=>{const f=e.target.closest('[data-f]');if(f){fi=+f.dataset.f;renderF()}};
+/* ---------- 02 Thuê xe ---------- */
+function renderCars(){
+ $('plist').innerHTML=cars.map(c=>`<div class="pr">${c.img?`<img loading="lazy" src="${esc(c.img)}" alt="">`:'<i>🛵</i>'}<div><b>${esc(c.name)}</b><small>${esc(c.spec)}</small></div>${c.price?`<span class="pill">${esc(c.price)}</span>`:''}</div>`).join('')||'<p class="mut" style="padding:12px">Chưa có xe.</p>';
+ $('g').innerHTML=cars.map((c,i)=>{const im=[c.img,...lines(c.imgs)].filter(Boolean);
+  return `<div class="card">${im.length?`<div class="ph1"><img loading="lazy" data-z="${zA('car'+i,im)}" src="${esc(im[0])}" alt="${esc(c.name)}">${c.price?`<span class="pb">${esc(c.price)}</span>`:''}${im.length>1?`<span class="pc">📷 ${im.length} ảnh</span>`:''}</div>`:''}<div class="b"><b>${esc(c.name)}</b><small class="mut">${esc(c.spec)}</small><div class="rt">${rich(c.desc)}</div><a class="btn wide" href="#dat" data-pre="Thuê xe: ${esc(c.name)}">✓ Đặt ${esc(c.name)}</a></div></div>`}).join('');
+ renderHome()}
+/* ---------- 05 Combo ---------- */
 function renderCb(){
- $('cbl').innerHTML=combos.map(c=>`<div class="box cbc">${c.img?`<img loading="lazy" data-z="1" src="${esc(c.img)}" alt="${esc(c.name)}">`:''}<b>${esc(c.name)}</b><p class="mut pre small">${esc(c.caption)}</p></div>`).join('')||'<p class="mut">Chưa có combo.</p>';
- fill('cb',combos.map(c=>`<option>${esc(c.name)}</option>`).join('')||'<option value="">Chưa có combo</option>')}
-$('cbl').onclick=e=>{if(e.target.dataset.z){$('lbI').src=e.target.src;$('lb').showModal()}};
-onSnapshot(collection(db,'combos'),q=>{combos=q.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(a.order||0)-(b.order||0));renderCb()},e=>console.error(e));
-let cur;
-$('g').onclick=e=>{const c=cars.find(x=>x.id===e.target.dataset.i);if(!c)return;cur=c;
- $('dI').src=c.img||'';$('dI').hidden=!c.img;$('dZ').hidden=!c.img;$('dN').textContent=c.name;$('dP').textContent=c.price||'';$('dS').textContent=c.spec||'';$('dD').textContent=c.desc||'';$('dlg').showModal()};
-$('dX').onclick=()=>$('dlg').close();
-const zoom=()=>{$('lbI').src=$('dI').src;$('lb').showModal()};$('dI').onclick=zoom;$('dZ').onclick=zoom;$('lb').onclick=()=>$('lb').close();
-$('dB').onclick=()=>{$('car').value=cur.name;$('dlg').close();location.hash='dat-xe'};
-function route(){const h=location.hash.slice(1)||'gioi-thieu';document.querySelectorAll('[data-v]').forEach(e=>e.hidden=e.dataset.v!==h);
- document.querySelectorAll('a.t').forEach(a=>a.classList.toggle('on',a.hash==='#'+h));scrollTo(0,0)}
-addEventListener('hashchange',route);route();
+ $('cbl').innerHTML=combos.map((c,i)=>`<div class="card cbk" data-cb="${i}">${c.img?`<div class="ph1"><img loading="lazy" src="${esc(c.img)}" alt="">${c.badge?`<span class="pb l">${esc(c.badge)}</span>`:''}</div>`:''}<div class="b"><b>${esc(c.name)}</b><span class="acc">${esc(c.price||'Liên hệ báo giá')}</span></div></div>`).join('')||'<p class="mut">Chưa có combo.</p>';
+ renderHome()}
+/* ---------- Các chuyên mục khác (trang tự tạo) ---------- */
+function cardsHtml(p){const it=p.items||[],tags=[...new Set(it.map(x=>x.tag).filter(Boolean))],det=p.mode==='detail';let h='';
+ if(p.filter&&tags.length>1)h+=`<div class="f">${['',...tags].map(t=>`<button class="${t===pf?'on':''}" data-pf="${esc(t)}">${esc(t||'Tất cả')}</button>`).join('')}</div>`;
+ h+='<div class="g2">'+(it.map((x,i)=>({x,i})).filter(o=>!p.filter||!pf||o.x.tag===pf).map(({x,i})=>{const im=[x.img,...lines(x.imgs)].filter(Boolean),lab=(p.ctaLabel||'Đặt {name}').replace('{name}',x.name);
+  return `<div class="card${det?' cbk':''}"${det?` data-it="${p.id}:${i}"`:''}>${im.length?`<div class="ph1"><img loading="lazy" ${det?'':`data-z="${zA('p'+p.id+i,im)}" `}src="${esc(im[0])}" alt="">${x.tag?`<span class="pb l">${esc(x.tag)}</span>`:''}${im.length>1?`<span class="pc">📷 ${im.length} ảnh</span>`:''}</div>`:''}<div class="b"><div class="nr"><b>${esc(x.name)}</b>${x.sub?`<span class="acc">${esc(x.sub)}</span>`:''}</div>${det?'':`<div class="info">${rich(x.desc)}</div>${x.link?`<a class="btn g wide" href="${esc(ext(x.link))}" target="_blank" rel="noopener">📍 Chỉ đường Maps</a>`:''}${p.cta?`<a class="btn wide" href="#dat" data-pre="${esc(x.name)}">${esc(lab)}</a>`:''}`}</div></div>`}).join('')||'<p class="mut">Đang cập nhật...</p>')+'</div>';
+ return h}
+function spotsHtml(p){const it=(p.items||[]).map((x,i)=>({x,i}));let h='';
+ if(p.mapImg)h+=`<div class="box mapc"><img src="${esc(p.mapImg)}" data-z="${zA('map'+p.id,[p.mapImg])}" alt=""><div><div class="eb">BẢN ĐỒ THAM QUAN</div><b>${esc(p.mapTitle||'Bản đồ toàn đảo')}</b></div><button class="btn g" data-z="map${p.id}">Xem bản đồ</button></div>`;
+ for(const g of [...new Set(it.map(o=>o.x.tag||''))]){const m=it.filter(o=>(o.x.tag||'')===g);
+  h+=`<div class="gh"><h3>${esc(g||'Điểm đến')}</h3><span class="pill">${m.length} điểm</span></div>`+m.map(({x,i})=>`<div class="spot cbk" data-it="${p.id}:${i}"><div class="sp-i">${x.img?`<img loading="lazy" src="${esc(x.img)}" alt="">`:''}<em>${pad(i+1)}</em></div><div class="sp-b"><small class="acc">${pad(i+1)}${x.sub?' • '+esc(x.sub):''}</small><b>${esc(x.name)}</b><span class="mut cl">${esc(String(x.desc||'').split('\n')[0])}</span></div><i class="chev">›</i></div>`).join('')}
+ return h||'<p class="mut">Đang cập nhật...</p>'}
+function tilesHtml(p){return '<div class="tg">'+((p.items||[]).map(x=>`<div class="tile"><div class="ci">${esc(x.icon)||'📍'}</div><b>${esc(x.name)}</b><small>${esc(x.sub)}</small>${x.link?`<a class="btn" href="${esc(ext(x.link))}" target="_blank" rel="noopener">Maps →</a>`:''}</div>`).join('')||'<p class="mut">Đang cập nhật...</p>')+'</div>'}
+function parsePlan(t){const days=[];let d=null;for(const l of lines(t)){
+ if(/^(#|ngày\s*\d)/i.test(l)){d={label:l.replace(/^#\s*/,''),steps:[]};days.push(d);continue}
+ if(!d){d={label:'',steps:[]};days.push(d)}
+ const a=l.split('|').map(x=>x.trim()),one=a.length<2;
+ d.steps.push({tm:one?'':a[0],tx:one?a[0]:a[1],loc:(a[2]||'').split(';').map(z=>z.trim()).filter(Boolean).map(z=>{const k=z.indexOf('=');return k<0?{n:z,u:''}:{n:z.slice(0,k).trim(),u:z.slice(k+1).trim()}})})}
+ return days}
+function planHtml(p){const pl=p.plans||[];if(!pl.length)return '<p class="mut">Đang cập nhật...</p>';if(pi>=pl.length)pi=0;const cur=pl[pi];
+ let h=`<div class="seg">${pl.map((x,i)=>`<button class="${i===pi?'on':''}" data-pl="${i}">${esc(x.name)}</button>`).join('')}</div><div class="box"><h3 class="acc2">${esc(cur.title||cur.name)}</h3>`;
+ for(const d of parsePlan(cur.text)){if(d.label)h+=`<span class="daytag">${esc(d.label.toUpperCase())}</span>`;
+  h+='<div class="tl">'+d.steps.map(st=>`<div class="st">${st.tm?`<b>${esc(st.tm)}</b>`:''}<p>${esc(st.tx)}</p>${st.loc.length?`<div class="lc"><small>TỌA ĐỘ CHECK-IN TRONG KHUNG GIỜ NÀY:</small>${st.loc.map(l=>`<span>📍 ${esc(l.n)}${l.u?` <a href="${esc(ext(l.u))}" target="_blank" rel="noopener">Chỉ đường</a>`:''}</span>`).join('')}</div>`:''}</div>`).join('')+'</div>'}
+ h+='</div>';
+ if(p.advice||p.links)h+=`<div class="box adv"><h3>ⓘ Lời khuyên quan trọng</h3>${rich(p.advice)}${lines(p.links).map(l=>{const[n,u]=l.split('|').map(x=>x.trim());return u?`<p><a href="${esc(ext(u))}" target="_blank" rel="noopener">${esc(n)}</a></p>`:'<p>'+esc(l)+'</p>'}).join('')}</div>`;
+ if(p.cta)h+=`<a class="btn wide" href="#dat" data-pre="Lịch trình ${esc(cur.name)}">📅 ${esc((p.ctaLabel||'Đặt dịch vụ theo lịch trình {name}').replace('{name}',cur.name))}</a>`;
+ return h}
+const pageOf=h=>h.startsWith('c-')?pages.find(p=>p.id===h.slice(2)):null;
+function renderPg(p){$('pgT').textContent=p.title||'';const L=p.layout||'cards';
+ $('pgB').innerHTML=(p.intro?`<p class="mut pre">${esc(p.intro)}</p>`:'')+(L==='plan'?planHtml(p):L==='tiles'?tilesHtml(p):L==='spots'?spotsHtml(p):cardsHtml(p))}
+$('pgB').onclick=e=>{const p=pageOf(location.hash.slice(1));if(!p)return;
+ const f=e.target.closest('[data-pf]');if(f){pf=f.dataset.pf;renderPg(p);return}
+ const l=e.target.closest('[data-pl]');if(l){pi=+l.dataset.pl;renderPg(p)}};
+/* ---------- Trang chủ ---------- */
+const BI=[{o:1,h:'thong-tin-tau',e:'🚢',t:'Lịch tàu & Bảng giá',d:()=>ferries.map(f=>f.name).join(', ')||'Lịch theo tháng & bảng giá vé'},
+ {o:2,h:'thong-tin-xe',e:'🛵',t:'Thuê xe',d:()=>cars.map(c=>c.name).join(', ')||'Bảng giá & chi tiết các loại xe'},
+ {o:5,h:'thong-tin-combo',e:'🎒',t:'Combo dịch vụ',d:()=>combos.map(c=>c.name).join(', ')||'Các gói combo trọn gói'},
+ {o:10,h:'gioi-thieu',e:'✅',t:'Giới thiệu về mình',d:()=>'Hồ sơ, kinh nghiệm, kênh kiểm chứng'}];
+function renderHome(){
+ HL=[...BI.map(b=>({o:b.o,h:b.h,e:b.e,t:b.t,d:b.d()})),...pages.map(p=>({o:+p.order||0,h:'c-'+p.id,e:p.emoji||'📌',t:p.title||'',d:p.summary||''}))].sort((a,b)=>a.o-b.o);
+ $('ch').innerHTML=HL.map(c=>`<a href="#${c.h}"><span>${c.e}</span>${esc(c.t)}</a>`).join('');
+ $('cg').innerHTML=HL.map((c,i)=>`<a class="cc" href="#${c.h}"><div class="ci">${c.e}</div><span class="num">${pad(i+1)} ›</span><b>${esc(c.t)}</b><small>${esc(c.d)}</small></a>`).join('');
+ $('cnt').textContent=HL.length+' chuyên mục';
+ $('fnav').innerHTML=HL.map((c,i)=>`<a href="#${c.h}"><b>${pad(i+1)}.</b> ${esc(c.t)}</a>`).join('');
+ $('svl').innerHTML=[...new Set(['Vé tàu','Phòng / homestay','Thuê xe',...combos.map(c=>c.name),...pages.map(p=>p.title)])].filter(Boolean).map(x=>`<option value="${esc(x)}">`).join('')}
+/* ---------- Dữ liệu thời gian thực ---------- */
+const srt=a=>a.sort((x,y)=>(x.order||0)-(y.order||0)),mk=d=>({id:d.id,...d.data()}),er=e=>console.error(e);
+onSnapshot(doc(db,'settings','site'),d=>{s=d.data()||{};renderS()},er);
+onSnapshot(collection(db,'cars'),q=>{cars=srt(q.docs.map(mk));renderCars()},er);
+onSnapshot(collection(db,'ferries'),q=>{ferries=srt(q.docs.map(mk));renderF()},er);
+onSnapshot(collection(db,'combos'),q=>{combos=srt(q.docs.map(mk));renderCb()},er);
+onSnapshot(collection(db,'pages'),q=>{pages=q.docs.map(mk);renderHome();route()},er);
+/* ---------- Bảng trượt ---------- */
+const EY={'thong-tin-tau':'LỊCH TÀU & BẢNG GIÁ','dat':'TƯ VẤN & GIỮ CHỖ','trang':'CHUYÊN MỤC'};
+document.querySelectorAll('section[data-v]').forEach(sec=>{const h=sec.querySelector('h2'),hd=document.createElement('div');hd.className='sh';
+ hd.innerHTML='<div><div class="eb"></div></div><a class="xb" href="#cm" aria-label="Đóng">✕</a>';if(h)hd.firstChild.appendChild(h);sec.prepend(hd)});
+function route(){const h=location.hash.slice(1),pg=pageOf(h);let open=false;
+ if(cs!==h){pf='';pi=0}
+ if(pg)renderPg(pg);
+ document.querySelectorAll('section[data-v]').forEach(e=>{const v=e.dataset.v,on=v===h||(!!pg&&v==='trang');e.hidden=!on;
+  if(on){open=true;if(cs!==h)e.scrollTop=0;const n=HL.findIndex(x=>x.h===h)+1;e.querySelector('.eb').textContent=n?'MỤC '+pad(n):(EY[v]||'')}});
+ cs=h;document.body.classList.toggle('sheet',open)}
+addEventListener('hashchange',route);route();renderHome();
+$('bd').onclick=()=>{location.hash='cm'};
+addEventListener('keydown',e=>{if(e.key==='Escape'&&document.body.classList.contains('sheet'))location.hash='cm'});
+/* ---------- Form đặt dịch vụ chung ---------- */
 async function notify(t){const n=(NOTIFY||{}).ntfyTopic;
  if(n)try{await fetch('https://ntfy.sh/'+n,{method:'POST',body:t})}catch(e){}}
-$('bk').onsubmit=async e=>{e.preventDefault();const m=[];
- if(!$('pk').value)m.push('ngày giờ tàu ra đảo');if(!$('rt').value)m.push('ngày giờ tàu rời đảo');
- if($('pk').value&&$('rt').value&&$('rt').value<=$('pk').value)m.push('giờ tàu rời đảo phải sau giờ tàu ra đảo');
- if(!$('nm').value.trim())m.push('họ tên');if(!/^0\d{9,10}$/.test($('ph').value.replace(/\s/g,'')))m.push('số điện thoại 10–11 số');
- if(!$('ck').checked)m.push('đồng ý Chính sách bảo mật');
- if(m.length){$('err').textContent='Cần kiểm tra: '+m.join(', ')+'.';return}
- $('err').textContent='';
- try{await addDoc(collection(db,'bookings'),{type:'car',consent:true,pickup:$('pk').value,ret:$('rt').value,name:$('nm').value.trim(),phone:$('ph').value.trim(),qty:Math.max(1,+$('qty').value||1),car:$('car').value,note:$('note').value.trim(),status:'new',createdAt:serverTimestamp()});
-  notify(`🚗 Đơn đặt xe mới: ${$('car').value} x${$('qty').value}\nTàu ra đảo: ${$('pk').value.replace('T',' ')}\nTàu rời đảo: ${$('rt').value.replace('T',' ')}\nMở admin để xem thông tin khách.`);
-  $('bkb').innerHTML='<h3 class="ok">Đã gửi yêu cầu!</h3><p class="mut">Mình sẽ gọi lại số bạn để xác nhận.</p>'}
- catch(x){$('err').textContent='Gửi thất bại, vui lòng thử lại hoặc gọi trực tiếp.'}};
-const REQ={train:['from','to','date','name','phone'],room:['in','out','name','phone'],combo:['date','back','comboName','name','phone']};
-const N={from:'Điểm đi',to:'Điểm đến',date:'Ngày đi',back:'Ngày về',qty:'Số lượng',in:'Nhận phòng',out:'Trả phòng',guests:'Số khách',roomType:'Loại phòng',roomLoc:'Vị trí phòng',comboName:'Loại combo',name:'Họ tên',phone:'SĐT',note:'Ghi chú'};
-const SAFE=['from','to','date','back','qty','in','out','guests','roomType','roomLoc','comboName'];
-const TT={train:'🚆 Đơn vé tàu mới',room:'🏨 Đơn đặt phòng mới',combo:'🎁 Đơn đặt combo mới'};
-document.querySelectorAll('form[data-bk]').forEach(f=>f.onsubmit=async e=>{e.preventDefault();
- const t=f.dataset.bk,d=Object.fromEntries(new FormData(f)),err=f.querySelector('.err'),m=REQ[t].filter(k=>!String(d[k]||'').trim()).map(k=>N[k].toLowerCase());
- if(d.phone&&!/^0\d{9,10}$/.test(d.phone.replace(/\s/g,'')))m.push('số điện thoại 10–11 số');
- if(!d.consent)m.push('đồng ý Chính sách bảo mật');
- if(t==='room'&&d.in&&d.out&&d.out<=d.in)m.push('ngày trả phải sau ngày nhận');
- if((t==='train'||t==='combo')&&d.date&&d.back&&d.back<d.date)m.push('ngày về phải sau ngày đi');
- if(m.length){err.textContent='Cần kiểm tra: '+m.join(', ')+'.';return}
- err.textContent='';
- try{await addDoc(collection(db,'bookings'),{...d,type:t,consent:true,status:'new',createdAt:serverTimestamp()});
-  notify(TT[t]+'\n'+SAFE.filter(k=>String(d[k]||'').trim()).map(k=>N[k]+': '+d[k]).join('\n')+'\nMở admin để xem thông tin khách.');
-  f.innerHTML='<h3 class="ok">Đã gửi yêu cầu!</h3><p class="mut">Mình sẽ gọi lại số bạn để xác nhận.</p>'}
- catch(x){err.textContent='Gửi thất bại, vui lòng thử lại hoặc gọi trực tiếp.'}});
+const sumTxt=d=>`Dịch vụ: ${d.service}\nNgày đi: ${d.date||'-'}\nNgày về: ${d.back||'-'}\nSố người: ${d.qty}\nSĐT: ${d.phone}${d.name?'\nTên: '+d.name:''}${d.note?'\nGhi chú: '+d.note:''}`;
+$('sf').onsubmit=async e=>{e.preventDefault();const g=i=>$(i).value.trim(),m=[];
+ if(!g('sv'))m.push('dịch vụ');
+ if(!/^0\d{9,10}$/.test(g('sp').replace(/\s/g,'')))m.push('số điện thoại 10–11 số');
+ if(g('sd')&&g('sb')&&g('sb')<g('sd'))m.push('ngày về phải sau ngày đi');
+ if(!$('sck').checked)m.push('đồng ý Chính sách bảo mật');
+ if(m.length){$('se').textContent='Cần kiểm tra: '+m.join(', ')+'.';return}
+ $('se').textContent='';
+ const d={service:g('sv'),date:g('sd'),back:g('sb'),qty:Math.max(1,+$('sq').value||1),phone:g('sp'),name:g('sn'),note:g('sm')};
+ try{await addDoc(collection(db,'bookings'),{...d,type:'service',consent:true,status:'new',createdAt:serverTimestamp()});
+  notify(`🛎️ Yêu cầu dịch vụ mới: ${d.service}\n${d.qty} người${d.date?'\nĐi: '+d.date:''}${d.back?'\nVề: '+d.back:''}\nMở admin để xem thông tin khách.`);
+  sent=d;$('sbtn').hidden=true;$('sok').hidden=false;
+  $('sok').innerHTML='<h3 class="ok">Đã gửi yêu cầu!</h3><p class="mut">Mình sẽ liên hệ lại sớm. Muốn nhanh hơn, bạn có thể sao chép thông tin rồi nhắn Zalo ở bên dưới.</p><p><button type="button" class="btn" id="cp">Sao chép thông tin</button> <button type="button" class="btn g" id="again">Gửi yêu cầu khác</button></p>'}
+ catch(x){$('se').textContent='Gửi thất bại, vui lòng thử lại hoặc nhắn Zalo / gọi trực tiếp.'}};
+$('sok').onclick=e=>{
+ if(e.target.id==='cp'&&sent){const t=sumTxt(sent);(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>e.target.textContent='Đã sao chép ✓').catch(()=>{prompt('Sao chép nội dung này:',t)})}
+ if(e.target.id==='again'){$('sf').reset();$('sok').hidden=true;$('sbtn').hidden=false}};
 const DEF=()=>`1. Mục đích: chỉ dùng thông tin bạn gửi (họ tên, số điện thoại, nội dung đặt chỗ) để liên hệ tư vấn, xác nhận và thực hiện dịch vụ bạn yêu cầu.
-2. Dữ liệu thu thập: họ tên, số điện thoại, thông tin chuyến tàu/phòng/xe và ghi chú bạn nhập.
+2. Dữ liệu thu thập: họ tên, số điện thoại, thông tin dịch vụ, ngày đi/về, số người và ghi chú bạn nhập.
 3. Chia sẻ: không bán hay chia sẻ cho bên thứ ba vì mục đích quảng cáo. Chỉ chia sẻ phần tối thiểu với đơn vị trực tiếp thực hiện dịch vụ (vé tàu, nơi lưu trú, chủ xe) khi cần để hoàn tất đặt chỗ.
 4. Lưu trữ: dữ liệu lưu trên hệ thống Google Firebase, chỉ admin truy cập được; giữ trong thời gian cần thiết để phục vụ và đối soát, sau đó xóa.
 5. Quyền của bạn: yêu cầu xem, sửa, xóa dữ liệu hoặc rút lại sự đồng ý bất kỳ lúc nào bằng cách liên hệ${s.phone?': '+s.phone:' với chúng tôi'}.`;
