@@ -2,7 +2,7 @@
 <title>Duy Khanh Booker</title><link rel="stylesheet" href="style.css"></head><body>
 <div class="hx" id="hx"><div class="hx-top">
  <div class="bpill"><img id="logo" alt="" hidden><div><b id="brandN">Duy Khanh Booker</b><small id="tag2"></small></div></div>
- <div class="hx-btns"><a class="ib d" href="admin.html" aria-label="Admin">🔒</a><a class="ib" href="#cm" aria-label="Danh mục">☰</a></div></div>
+ <div class="hx-btns"><a class="ib d" href="admin.html" aria-label="Admin">🔒</a><a class="ib" href="#menu" aria-label="Danh mục">☰</a></div></div>
  <div class="hx-b"><div class="bds"><span class="bd" id="bdg" hidden>✓ <span id="badge"></span></span><span class="bd" id="plc" hidden></span></div>
  <h1 id="brand2">Duy Khanh Booker</h1><p id="sub"></p>
  <a class="hot" id="call" href="#" hidden>📞 <span id="callT"></span></a></div></div>
@@ -40,14 +40,12 @@
  <div class="c2"><a class="btn js-tl" href="#">📞 Gọi ngay</a><a class="btn g js-fb" href="#" target="_blank" rel="noopener" hidden>Facebook</a></div>
 </section>
 <section data-v="thong-tin-tau" hidden>
- <h2>Lịch tàu & Bảng giá vé</h2>
+ <h2>Lịch tàu & Bảng giá</h2>
  <p class="mut">Xem lịch tàu theo tháng, chọn hãng tàu để xem chi tiết và bảng giá.</p>
  <div class="box"><div class="eb">TRA CỨU NHANH</div><h3>Lịch tàu theo tháng</h3><div class="mon" id="mon"></div><div id="monImg"></div></div>
  <div class="eb" id="fcount" style="margin:16px 0 8px"></div><div class="fsel" id="fsel"></div>
  <div class="box" id="fdet" hidden></div>
- <div class="eb" style="margin-top:18px">BẢNG GIÁ VÉ NIÊM YẾT</div><h3>Bảng giá vé các hãng tàu</h3><div id="fe"></div>
- <div class="block" id="fnoteB" hidden><h3>Lưu ý</h3><p class="mut pre" id="fnote"></p></div>
- <p><a class="btn wide" href="#dat" data-pre="Vé tàu">🎫 Đặt vé tàu</a></p>
+  <div class="block" id="fnoteB" hidden><h3>Lưu ý</h3><p class="mut pre" id="fnote"></p></div>
 </section>
 <section data-v="thong-tin-xe" hidden>
  <h2 id="fleetT">Thuê xe</h2>
@@ -58,6 +56,7 @@
 <section data-v="thong-tin-combo" hidden>
  <h2>Combo dịch vụ</h2><div class="g2" id="cbl"></div>
 </section>
+<section data-v="menu" hidden><h2>Danh mục dịch vụ</h2><div class="cg" id="mnu"></div></section>
 <section data-v="trang" hidden><h2 id="pgT"></h2><div id="pgB"></div></section>
 <section data-v="gioi-thieu" hidden>
  <h2>Giới thiệu về mình</h2>
@@ -140,15 +139,16 @@ function renderF(){
  $('monImg').innerHTML=mi?`<img class="zimg" loading="lazy" data-z="${zA('mon',[mi])}" src="${esc(mi)}" alt=""><div class="zh">🔍 Lịch tháng ${fm} • Bấm để phóng to</div>`:`<p class="mut">Chưa có lịch tháng ${fm}. Liên hệ để được báo lịch tàu.</p>`;
  $('fcount').textContent=`CHỌN HÃNG TÀU (${ferries.length} TÀU)`;
  if(fi>=ferries.length)fi=0;
- $('fsel').innerHTML=ferries.map((f,i)=>`<button class="fc ${i===fi?'on':''}" data-f="${i}">${f.img?`<img src="${esc(f.img)}" alt="">`:'<i>🚢</i>'}<span><b>${esc(f.name)}</b><small>${esc(f.info)}</small></span></button>`).join('');
+ $('fsel').innerHTML=ferries.map((f,i)=>`<button class="fc ${i===fi?'on':''}" data-f="${i}">${f.img?`<img src="${esc(f.img)}" alt="">`:'<i>🚢</i>'}<span><b>${esc(f.name)}</b><small>${esc(lines(f.info).map(x=>x.replace(/^[-•*+]\s+/,'')).join(' · '))}</small></span></button>`).join('');
  const f=ferries[fi];$('fdet').hidden=!f;
- if(f){const sch=lines(f.schedule),ph=lines(f.photos);
+ if(f){const sch=lines(f.schedule),ph=lines(f.photos),rows=f.prices||[],aud=COLS.filter(c=>rows.some(r=>String(r[c[0]]||'').trim()));
   $('fdet').innerHTML=`<div class="eb">CHI TIẾT HÃNG TÀU</div><h3>${esc(f.name)}</h3>`
-  +(sch.length?`<img class="zimg" loading="lazy" data-z="${zA('fs',sch)}" src="${esc(sch[0])}" alt=""><div class="zh">🔍 Lịch chạy (${sch.length} ảnh) • Bấm để xem lớn</div>`:'')
+  +(f.info?`<div class="rt">${rich(f.info)}</div>`:'')
+  +(sch.length?`<h4>Lịch chạy</h4><img class="zimg" loading="lazy" data-z="${zA('fs',sch)}" src="${esc(sch[0])}" alt=""><div class="zh">🔍 ${sch.length} ảnh • Bấm để xem lớn</div>`:'')
+  +`<h4>Bảng giá vé ${esc(f.name)} ${f.promo?`<span class="pill">${esc(f.promo)}</span>`:''}</h4>`
+  +(rows.length&&aud.length?`<div class="tw"><table><tr><th>Đối tượng</th>${rows.map(r=>`<th>${esc(r.type)}</th>`).join('')}</tr>${aud.map(c=>`<tr><td>${c[1]}</td>${rows.map(r=>`<td>${esc(r[c[0]])||'—'}</td>`).join('')}</tr>`).join('')}</table></div>`:'<p class="mut">Chưa có bảng giá cho tàu này. Liên hệ để được báo giá.</p>')
   +(ph.length?`<h4>Hình ảnh ${esc(f.name)} (${ph.length} ảnh)</h4><div class="ph">${ph.map((u,i)=>`<img loading="lazy" data-z="${zA('fp',ph)}" data-i="${i}" src="${esc(u)}" alt="">`).join('')}</div>`:'')
   +`<a class="btn wide" href="#dat" data-pre="Vé tàu ${esc(f.name)}">🎫 Đặt vé ${esc(f.name)} ngay</a>`}
- $('fe').innerHTML=ferries.map(f=>{const rows=f.prices||[],aud=COLS.filter(c=>rows.some(r=>String(r[c[0]]||'').trim()));
-  return `<div class="box"><div class="fh">${f.img?`<img src="${esc(f.img)}" alt="">`:''}<h3>${esc(f.name)}</h3>${f.promo?`<span class="pill">${esc(f.promo)}</span>`:''}</div><div class="tw"><table><tr><th>Đối tượng</th>${rows.map(r=>`<th>${esc(r.type)}</th>`).join('')}</tr>${aud.map(c=>`<tr><td>${c[1]}</td>${rows.map(r=>`<td>${esc(r[c[0]])||'—'}</td>`).join('')}</tr>`).join('')}</table></div></div>`}).join('')||'<p class="mut">Chưa có bảng giá.</p>';
  renderHome()}
 $('mon').onclick=e=>{const m=e.target.closest('[data-m]');if(m){fm=+m.dataset.m;renderF()}};
 $('fsel').onclick=e=>{const f=e.target.closest('[data-f]');if(f){fi=+f.dataset.f;renderF()}};
@@ -203,6 +203,7 @@ function renderHome(){
  HL=[...BI.map(b=>({o:b.o,h:b.h,e:b.e,t:b.t,d:b.d()})),...pages.map(p=>({o:+p.order||0,h:'c-'+p.id,e:p.emoji||'📌',t:p.title||'',d:p.summary||''}))].sort((a,b)=>a.o-b.o);
  $('ch').innerHTML=HL.map(c=>`<a href="#${c.h}"><span>${c.e}</span>${esc(c.t)}</a>`).join('');
  $('cg').innerHTML=HL.map((c,i)=>`<a class="cc" href="#${c.h}"><div class="ci">${c.e}</div><span class="num">${pad(i+1)} ›</span><b>${esc(c.t)}</b><small>${esc(c.d)}</small></a>`).join('');
+ $('mnu').innerHTML=$('cg').innerHTML;
  $('cnt').textContent=HL.length+' chuyên mục';
  $('fnav').innerHTML=HL.map((c,i)=>`<a href="#${c.h}"><b>${pad(i+1)}.</b> ${esc(c.t)}</a>`).join('');
  $('svl').innerHTML=[...new Set(['Vé tàu','Phòng / homestay','Thuê xe',...combos.map(c=>c.name),...pages.map(p=>p.title)])].filter(Boolean).map(x=>`<option value="${esc(x)}">`).join('')}
@@ -214,9 +215,9 @@ onSnapshot(collection(db,'ferries'),q=>{ferries=srt(q.docs.map(mk));renderF()},e
 onSnapshot(collection(db,'combos'),q=>{combos=srt(q.docs.map(mk));renderCb()},er);
 onSnapshot(collection(db,'pages'),q=>{pages=q.docs.map(mk);renderHome();route()},er);
 /* ---------- Bảng trượt ---------- */
-const EY={'thong-tin-tau':'LỊCH TÀU & BẢNG GIÁ','dat':'TƯ VẤN & GIỮ CHỖ','trang':'CHUYÊN MỤC'};
+const EY={'thong-tin-tau':'LỊCH TÀU & BẢNG GIÁ','dat':'TƯ VẤN & GIỮ CHỖ','trang':'CHUYÊN MỤC','menu':'DANH MỤC'};
 document.querySelectorAll('section[data-v]').forEach(sec=>{const h=sec.querySelector('h2'),hd=document.createElement('div');hd.className='sh';
- hd.innerHTML='<div><div class="eb"></div></div><a class="xb" href="#cm" aria-label="Đóng">✕</a>';if(h)hd.firstChild.appendChild(h);sec.prepend(hd)});
+ hd.innerHTML='<a class="bk" href="#cm">‹ Trang chủ</a><div class="ttl"><div class="eb"></div></div><a class="mn" href="#menu" aria-label="Danh mục">☰</a>';if(h)hd.querySelector('.ttl').appendChild(h);sec.prepend(hd)});
 function route(){const h=location.hash.slice(1),pg=pageOf(h);let open=false;
  if(cs!==h){pf='';pi=0}
  if(pg)renderPg(pg);
