@@ -29,8 +29,6 @@
 <h3>Mục "Thuê xe"</h3>
 <label>Tiêu đề trang Thuê xe<input id="s_fleetTitle" placeholder="Thuê xe"></label>
 <label>Cách tính ngày thuê / điều kiện thuê (mỗi dòng 1 ý)<textarea id="s_carRules" rows="4"></textarea></label>
-<h3>Mục "Lịch tàu"</h3>
-<label>Ảnh lịch tàu theo tháng: 12 dòng, dòng 1 = tháng 1 ... dòng 12 = tháng 12 (mỗi dòng 1 link ảnh, tháng chưa có thì để dòng trống)<textarea id="s_monthImgs" rows="12" placeholder="img/lich-thang-1.jpg&#10;img/lich-thang-2.jpg"></textarea></label>
 <h3>Chính sách bảo mật</h3>
 <label>Nội dung (khách bấm link trong form sẽ thấy; để trống = dùng mẫu có sẵn)<textarea id="s_privacy" rows="7"></textarea></label>
 <button class="btn" id="s_save">Lưu</button> <span id="s_m" class="ok"></span></div></section>
@@ -46,7 +44,16 @@
 <button class="btn g" id="f_add">+ Thêm hạng ghế</button><br><br>
 <button class="btn" id="f_save">Lưu tàu</button> <button class="btn g" id="f_new">Làm mới</button></div>
 <div id="f_list"></div>
-<div class="box"><label>Lưu ý chung cho khách (hiện cuối trang Lịch tàu)<textarea id="f_note" rows="6"></textarea></label><button class="btn" id="f_nsave">Lưu lưu ý</button> <span class="ok" id="f_nm"></span></div>
+<div class="box"><h3>Nội dung chung của trang Lịch tàu</h3>
+<label>Thông báo thay cho lịch tàu theo tháng (vd: Lịch tàu thay đổi theo ngày, vui lòng nhắn Zalo để xem)<textarea id="f_notice" rows="3"></textarea></label>
+<h3>Thủ tục &amp; giấy tờ cần thiết (hiện dưới thông tin giá vé)</h3>
+<label>Dòng nhỏ phía trên tiêu đề (vd: THỦ TỤC &amp; GIẤY TỜ CẦN THIẾT)<input id="f_procEyebrow"></label>
+<label>Tiêu đề (vd: ĐẶT VÉ TÀU CẦN GÌ?)<input id="f_procTitle"></label>
+<label>Câu dẫn (vd: Bạn cần chuẩn bị để cung cấp:)<input id="f_procSub"></label>
+<label>Nội dung<textarea id="f_procBody" rows="14" placeholder="## 1. CĂN CƯỚC HOẶC PASSPORT&#10;👉 **Chụp ảnh 1 mặt:** là cách gọn nhất&#10;- Số CCCD&#10;- Họ tên&#10;!! 📌 Lưu ý:&#10;- Tàu A cần giấy tờ này&#10;## 2. SỐ ĐIỆN THOẠI ĐẠI DIỆN&#10;👉 Để nhà tàu liên lạc khi cần&#10;### SAU KHI CÓ VÉ CẦN LƯU Ý&#10;👉 Có mặt trước giờ tàu chạy 30-45p&#10;!!! Người nước ngoài cần mang bản chính Passport&#10;> Bến tàu Phan Thiết | https://maps.google.com/..."></textarea></label>
+<div class="mut" style="font-size:13px;margin-bottom:12px"><b>Cách viết:</b> <code>## Tiêu đề</code> = khung xám có tiêu đề · <code>### Tiêu đề</code> = khung xanh · dòng thường = đoạn chữ · <code>- chữ</code> = gạch đầu dòng · <code>**chữ**</code> = in đậm · <code>!! chữ</code> = khung vàng lưu ý (các dòng ngay dưới thuộc khung đó, hết khung khi có dòng trống) · <code>!!! chữ</code> = khung đỏ cảnh báo · <code>&gt; Tên | link Maps</code> = nút chỉ đường. Có thể gõ emoji tự do (👉 📍 📌).</div>
+<label>Lưu ý chung cho khách (hiện cuối trang Lịch tàu)<textarea id="f_note" rows="5"></textarea></label>
+<button class="btn" id="f_nsave">Lưu nội dung</button> <span class="ok" id="f_nm"></span></div>
 <div class="box"><button class="btn g" id="f_seed">Nhập sẵn 4 tàu theo bảng giá</button></div></section>
 
 <section id="p-c" hidden><div class="box"><h3 id="c_h">Thêm xe</h3>
@@ -125,14 +132,14 @@ function ED(c){let items=[],id=null,cur=null;const P=k=>$(c.p+'_'+k);
   if(D&&confirm('Xóa mục này?')){await deleteDoc(doc(db,c.col,D));await load()}};
  reset();return{load}}
 /* ---- Giới thiệu & cài đặt chung ---- */
-const K=['brand','heroImg','logo','badge','place','tagline','phone','fb','ig','address','owner','birth','intro','edu','exp','pointsTitle','points','links','customers','fleetTitle','carRules','monthImgs','privacy'];let av='';
-async function loadS(){const d=(await getDoc(doc(db,'settings','site'))).data()||{};K.forEach(k=>$('s_'+k).value=d[k]||'');av=d.avatar||'';$('f_note').value=d.ferryNote||'';$('s_av').value=av.startsWith('data:')?'':av}
+const K=['brand','heroImg','logo','badge','place','tagline','phone','fb','ig','address','owner','birth','intro','edu','exp','pointsTitle','points','links','customers','fleetTitle','carRules','privacy'];let av='';
+async function loadS(){const d=(await getDoc(doc(db,'settings','site'))).data()||{};K.forEach(k=>$('s_'+k).value=d[k]||'');av=d.avatar||'';$('f_note').value=d.ferryNote||'';$('f_notice').value=d.ferryNotice||'';$('f_procEyebrow').value=d.procEyebrow||'';$('f_procTitle').value=d.procTitle||'';$('f_procSub').value=d.procSub||'';$('f_procBody').value=d.procBody||'';$('s_av').value=av.startsWith('data:')?'':av}
 $('s_save').onclick=async()=>{const v=$('s_av').value.trim(),d={avatar:v||(av.startsWith('data:')?av:'')};K.forEach(k=>d[k]=$('s_'+k).value);await setDoc(doc(db,'settings','site'),d,{merge:true});$('s_m').textContent='Đã lưu';setTimeout(()=>$('s_m').textContent='',2000)};
 /* ---- Tàu ---- */
 const fE=ED({col:'ferries',p:'f',f:{name:'v',order:'n',info:'v',img:'v',schedule:'v',photos:'v',promo:'v'},
  re:{prices:RE('f_rows',[['type','Hạng ghế (vd: Ghế Eco, Ghế VIP, Giường)'],['adult','Người lớn'],['local','Người địa phương'],['senior','Cao tuổi (60+)'],['disabled','Khuyết tật'],['child','Trẻ em 6-11']],'f_add')},
  need:'name',msg:'Nhập tên tàu',add:'Thêm tàu',edit:'Sửa tàu',t:x=>x.name,s:x=>'· '+(x.prices||[]).length+' hạng ghế'});
-$('f_nsave').onclick=async()=>{await setDoc(doc(db,'settings','site'),{ferryNote:$('f_note').value},{merge:true});$('f_nm').textContent='Đã lưu';setTimeout(()=>$('f_nm').textContent='',2000)};
+$('f_nsave').onclick=async()=>{await setDoc(doc(db,'settings','site'),{ferryNote:$('f_note').value,ferryNotice:$('f_notice').value,procEyebrow:$('f_procEyebrow').value,procTitle:$('f_procTitle').value,procSub:$('f_procSub').value,procBody:$('f_procBody').value},{merge:true});$('f_nm').textContent='Đã lưu';setTimeout(()=>$('f_nm').textContent='',2000)};
 const P=(t,a,l,s,d,c)=>({type:t,adult:a,local:l,senior:s,disabled:d,child:c});
 $('f_seed').onclick=async()=>{if(!confirm('Nhập sẵn 4 tàu theo bảng giá? Chỉ nên làm khi chưa có tàu nào.'))return;
  const Q=[['SUPERDONG 1 / SUPERDONG 2',[P('Ghế ngồi','344K','','290K','256K','246K'),P('Ghế nằm (SPD 2)','393K','','393K','393K','393K')]],

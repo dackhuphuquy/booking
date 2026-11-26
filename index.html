@@ -1,5 +1,31 @@
 <!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0e6b7c">
-<title>Duy Khanh Booker</title><link rel="stylesheet" href="style.css"></head><body>
+<title>Duy Khanh Booker</title><link rel="stylesheet" href="style.css?v=5"><style>
+/* ===== v5: toàn màn hình, form gọn, thủ tục ===== */
+#bd{display:none!important}
+section[data-v]{position:fixed;left:0;right:0;top:0;bottom:0;max-width:none;margin:0;border-radius:0;box-shadow:none;background:#fff;overflow:auto;z-index:60;--px:max(16px,calc((100vw - 760px)/2));padding:0 var(--px) calc(60px + env(safe-area-inset-bottom))}
+section[data-v][hidden]{display:none}
+.sh{position:sticky;top:0;z-index:3;background:#fff;margin:0 calc(-1 * var(--px)) 14px;padding:calc(12px + env(safe-area-inset-top)) var(--px) 12px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;border-bottom:1px solid var(--line)}
+.sh .ttl{text-align:center;min-width:0}.sh .ttl .eb{font-size:11px}
+.sh h2{font-size:17px;margin:2px 0 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bk{display:inline-flex;align-items:center;gap:4px;background:#e3f2f5;color:var(--acc)!important;border-radius:16px;padding:11px 12px;font-weight:800;font-size:14px;text-decoration:none!important;white-space:nowrap}
+.mn{width:46px;height:46px;border-radius:16px;border:1px solid var(--line);display:grid;place-items:center;text-decoration:none!important;color:var(--cream)!important;font-size:20px;background:#fff}
+#fdet table{min-width:0}#fdet h4{margin:16px 0 6px}#fdet .pill{margin-left:6px;vertical-align:middle}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.r2>label{min-width:0}
+#sf label{font-weight:700;color:var(--cream);font-size:15px;margin-bottom:12px}
+#sf input,#sf select,#sf textarea{border-radius:18px;background:#f6f9fb;padding:12px 14px;font-size:16px;margin-top:6px;min-width:0}
+#sf input[type=date]{height:48px;width:100%;max-width:100%;-webkit-appearance:none;appearance:none;text-align:left}
+#sf .ck{font-weight:400;font-size:13px}
+#sf .btn.wide{padding:16px;font-size:16px;box-shadow:0 8px 20px #0e6b7c40}
+.cinfo{display:flex;gap:12px;align-items:center;background:#eaf5f7;border:1px solid #c9e3e8;border-radius:22px;padding:12px 14px;margin:4px 0 16px}
+.cinfo img{width:56px;height:56px;border-radius:14px;object-fit:cover;flex:none}.cinfo b{display:block}.cinfo span{display:block;font-size:14px}.cinfo small{color:var(--acc);font-weight:700}
+.pc2{background:#f6f9fb;border:1px solid var(--line);border-radius:20px;padding:12px 14px;margin:12px 0}
+.pc2 h4{color:var(--acc);margin:0 0 6px;font-size:15px;text-transform:uppercase}.pc2.gr{background:#eef8f7;border-color:#bfe0dc}.pc2.gr h4{color:var(--cream)}
+.pc2 p,.nt p{margin:5px 0}.pc2 ul{margin:4px 0;padding-left:20px}
+.nt{background:#fffbea;border:1px solid #f1e2a6;border-radius:16px;padding:10px 12px;margin:10px 0;color:#5b3a05}
+.al{background:#fff0f2;border:1px solid #f4c3cb;border-radius:16px;padding:10px 12px;margin:10px 0;color:#b4233a;font-weight:700}
+.mcard{background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px;margin:12px 0}.mcard .btn{margin-top:8px;display:block;text-align:center}
+.zlb,.zlb b,.zlb small,.zlb i{color:#fff!important}.adv .zlb{text-decoration:none}
+</style></head><body>
 <div class="hx" id="hx"><div class="hx-top">
  <div class="bpill"><img id="logo" alt="" hidden><div><b id="brandN">Duy Khanh Booker</b><small id="tag2"></small></div></div>
  <div class="hx-btns"><a class="ib d" href="admin.html" aria-label="Admin">🔒</a><a class="ib" href="#menu" aria-label="Danh mục">☰</a></div></div>
@@ -24,28 +50,30 @@
 <div id="bd"></div>
 <main>
 <section data-v="dat" hidden>
- <h2>Đặt dịch vụ</h2><p class="mut">Gửi yêu cầu, mình sẽ liên hệ tư vấn và giữ chỗ cho bạn.</p>
+ <h2>Đặt dịch vụ</h2>
+ <div class="cinfo"><img id="clogo" alt="" hidden><div><b id="cown"></b><span id="ctel"></span><small id="ctag"></small></div></div>
  <form id="sf" novalidate>
-  <label>Dịch vụ bạn quan tâm *<input id="sv" list="svl" placeholder="Chọn hoặc nhập (vd: vé tàu, phòng, xe, combo...)" autocomplete="off"><datalist id="svl"></datalist></label>
-  <div class="row"><label>Ngày đi<input type="date" id="sd"></label><label>Ngày về<input type="date" id="sb"></label></div>
-  <div class="row"><label>Số người<input type="number" id="sq" min="1" placeholder="vd: 2"></label><label>Số điện thoại *<input type="tel" id="sp" placeholder="09xx..." autocomplete="tel"></label></div>
+  <label>Dịch vụ bạn quan tâm *<input id="sv" list="svl" placeholder="Vd: vé tàu, thuê xe, combo..." autocomplete="off"><datalist id="svl"></datalist></label>
+  <div class="r2"><label>Ngày đi<input type="date" id="sd"></label><label>Ngày về<input type="date" id="sb"></label></div>
+  <div class="r2"><label>Số người<input type="number" id="sq" min="1" placeholder="vd: 2"></label><label>Số điện thoại *<input type="tel" id="sp" placeholder="09xx..." autocomplete="tel"></label></div>
   <label>Họ tên (không bắt buộc)<input id="sn" autocomplete="name"></label>
-  <label>Ghi chú thêm<textarea id="sm" rows="3" placeholder="Vd: cần đón tại cảng, thích phòng view biển, hỏi giờ tàu..."></textarea></label>
+  <label>Ghi chú thêm<textarea id="sm" rows="2" placeholder="Vd: cần đón tại cảng, thích phòng view biển, hỏi giờ tàu..."></textarea></label>
   <label class="ck"><input type="checkbox" id="sck"><span>Tôi đồng ý với <a href="#" class="pvl">Chính sách bảo mật</a> và cho phép xử lý thông tin này để liên hệ, xác nhận đặt chỗ.</span></label>
   <p class="err" id="se"></p><button class="btn wide" id="sbtn">Gửi yêu cầu</button>
   <div id="sok" hidden></div>
  </form>
- <div class="sep">Cần nhanh? Liên hệ trực tiếp:</div>
+ <div class="sep">Hoặc kết nối trực tiếp:</div>
  <a class="zlb js-zl" href="#" target="_blank" rel="noopener"><i>Zalo</i><div><b>Nhắn Zalo (kênh chính)</b><small class="zlt">Mở chat trực tiếp</small></div></a>
  <div class="c2"><a class="btn js-tl" href="#">📞 Gọi ngay</a><a class="btn g js-fb" href="#" target="_blank" rel="noopener" hidden>Facebook</a></div>
 </section>
 <section data-v="thong-tin-tau" hidden>
  <h2>Lịch tàu & Bảng giá</h2>
- <p class="mut">Xem lịch tàu theo tháng, chọn hãng tàu để xem chi tiết và bảng giá.</p>
- <div class="box"><div class="eb">TRA CỨU NHANH</div><h3>Lịch tàu theo tháng</h3><div class="mon" id="mon"></div><div id="monImg"></div></div>
+ <div class="box adv"><h3>📅 Lịch tàu</h3><p class="pre" id="fNotice"></p>
+  <a class="zlb js-zl" href="#" target="_blank" rel="noopener"><i>Zalo</i><div><b>Nhắn Zalo xem lịch tàu</b><small class="zlt">Mở chat trực tiếp</small></div></a></div>
  <div class="eb" id="fcount" style="margin:16px 0 8px"></div><div class="fsel" id="fsel"></div>
  <div class="box" id="fdet" hidden></div>
-  <div class="block" id="fnoteB" hidden><h3>Lưu ý</h3><p class="mut pre" id="fnote"></p></div>
+ <div class="box" id="proc" hidden></div>
+ <div class="block" id="fnoteB" hidden><h3>Lưu ý</h3><p class="mut pre" id="fnote"></p></div>
 </section>
 <section data-v="thong-tin-xe" hidden>
  <h2 id="fleetT">Thuê xe</h2>
@@ -101,6 +129,25 @@ document.addEventListener('click',e=>{
  const it=e.target.closest('[data-it]');if(it){const[pid,i]=it.dataset.it.split(':'),p=pages.find(x=>x.id===pid),x=p&&(p.items||[])[+i];if(x)openItem(itemOf(p,x));return}
  const cb=e.target.closest('[data-cb]');if(cb){const c=combos[+cb.dataset.cb];if(c)openItem({title:c.name,price:c.price||'Liên hệ báo giá',badge:c.badge,body:rich(c.caption),imgs:[c.img,...lines(c.imgs)],pre:c.name,label:'🎁 Nhận ưu đãi & báo giá '+c.name})}});
 /* ---------- Thông tin chung ---------- */
+const inl=t=>esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');
+function blocks(t){const out=[];let cur=null,note=null;const put=n=>(cur?cur.ch:out).push(n);
+ for(const raw of String(t||'').split('\n')){const l=raw.trim();let m;
+  if(!l){note=null;continue}
+  if(m=l.match(/^(#{2,3})\s+(.*)/)){cur={k:'card',g:m[1].length===3,t:m[2],ch:[]};out.push(cur);note=null;continue}
+  if(m=l.match(/^!!!\s*(.*)/)){put({k:'al',t:m[1]});note=null;continue}
+  if(m=l.match(/^>\s*(.*?)\s*\|\s*(\S+)/)){put({k:'mp',n:m[1],u:m[2]});note=null;continue}
+  if(m=l.match(/^!!\s*(.*)/)){note={k:'nt',ls:[m[1]]};put(note);continue}
+  if(note){note.ls.push(l);continue}
+  if(m=l.match(/^[-•]\s+(.*)/)){put({k:'li',t:m[1]});continue}
+  put({k:'p',t:l})}
+ const rn=a=>{let h='',i=0;while(i<a.length){const n=a[i];
+  if(n.k==='li'){h+='<ul>';while(i<a.length&&a[i].k==='li'){h+='<li>'+inl(a[i].t)+'</li>';i++}h+='</ul>';continue}
+  h+=n.k==='p'?'<p>'+inl(n.t)+'</p>':n.k==='al'?'<div class="al">'+inl(n.t)+'</div>':n.k==='nt'?'<div class="nt"><b>'+inl(n.ls[0])+'</b>'+n.ls.slice(1).map(x=>'<p>'+(/^[-•]\s+/.test(x)?'• '+inl(x.replace(/^[-•]\s+/,'')):inl(x))+'</p>').join('')+'</div>':n.k==='mp'?`<div class="mcard"><b>📍 ${esc(n.n)}</b><a class="btn" href="${esc(ext(n.u))}" target="_blank" rel="noopener">Chỉ đường Google Maps</a></div>`:`<div class="pc2${n.g?' gr':''}"><h4>${inl(n.t)}</h4>${rn(n.ch)}</div>`;i++}
+  return h};
+ return rn(out)}
+function renderProc(){const has=s.procBody||s.procTitle;$('proc').hidden=!has;
+ $('proc').innerHTML=has?(s.procEyebrow?'<div class="eb">'+esc(s.procEyebrow)+'</div>':'')+(s.procTitle?'<h3>'+esc(s.procTitle)+'</h3>':'')+(s.procSub?'<p class="mut">'+esc(s.procSub)+'</p>':'')+blocks(s.procBody):''}
+
 function renderS(){
  const brand=s.brand||'Duy Khanh Booker';document.title=brand;$('brand2').textContent=brand;$('brandN').textContent=brand;
  $('tag2').textContent=s.badge||'';$('badge').textContent=s.badge||'';$('bdg').hidden=!s.badge;
@@ -130,13 +177,12 @@ function renderS(){
  $('fleetT').textContent=s.fleetTitle||'Thuê xe';
  $('ruleB').hidden=!s.carRules;$('rule').innerHTML=rich(s.carRules,1);
  $('fnoteB').hidden=!s.ferryNote;$('fnote').textContent=s.ferryNote||'';
- renderF()}
+ $('fNotice').textContent=s.ferryNotice||'Lịch tàu thay đổi theo ngày nên không đăng cố định. Bạn vui lòng nhắn Zalo để mình báo lịch tàu mới nhất nhé.';
+ $('clogo').hidden=!lg;if(lg)$('clogo').src=lg;$('cown').textContent=s.owner?('Phụ trách: '+s.owner):brand;$('ctel').textContent=s.phone?('Hotline / Zalo: '+s.phone):'';$('ctag').textContent=s.tagline||s.badge||'';
+ renderProc();renderF()}
 /* ---------- 01 Lịch tàu & bảng giá ---------- */
 const COLS=[['adult','Người lớn'],['local','Người địa phương'],['senior','Cao tuổi (từ 60)'],['disabled','Khuyết tật'],['child','Trẻ em (6–11)']];
 function renderF(){
- const M=(s.monthImgs||'').split('\n').map(x=>x.trim()),mi=M[fm-1];
- $('mon').innerHTML=Array.from({length:12},(_,i)=>`<button class="${i+1===fm?'on':''}" data-m="${i+1}">Tháng ${pad(i+1)}</button>`).join('');
- $('monImg').innerHTML=mi?`<img class="zimg" loading="lazy" data-z="${zA('mon',[mi])}" src="${esc(mi)}" alt=""><div class="zh">🔍 Lịch tháng ${fm} • Bấm để phóng to</div>`:`<p class="mut">Chưa có lịch tháng ${fm}. Liên hệ để được báo lịch tàu.</p>`;
  $('fcount').textContent=`CHỌN HÃNG TÀU (${ferries.length} TÀU)`;
  if(fi>=ferries.length)fi=0;
  $('fsel').innerHTML=ferries.map((f,i)=>`<button class="fc ${i===fi?'on':''}" data-f="${i}">${f.img?`<img src="${esc(f.img)}" alt="">`:'<i>🚢</i>'}<span><b>${esc(f.name)}</b><small>${esc(lines(f.info).map(x=>x.replace(/^[-•*+]\s+/,'')).join(' · '))}</small></span></button>`).join('');
@@ -150,7 +196,6 @@ function renderF(){
   +(ph.length?`<h4>Hình ảnh ${esc(f.name)} (${ph.length} ảnh)</h4><div class="ph">${ph.map((u,i)=>`<img loading="lazy" data-z="${zA('fp',ph)}" data-i="${i}" src="${esc(u)}" alt="">`).join('')}</div>`:'')
   +`<a class="btn wide" href="#dat" data-pre="Vé tàu ${esc(f.name)}">🎫 Đặt vé ${esc(f.name)} ngay</a>`}
  renderHome()}
-$('mon').onclick=e=>{const m=e.target.closest('[data-m]');if(m){fm=+m.dataset.m;renderF()}};
 $('fsel').onclick=e=>{const f=e.target.closest('[data-f]');if(f){fi=+f.dataset.f;renderF()}};
 /* ---------- 02 Thuê xe ---------- */
 function renderCars(){
