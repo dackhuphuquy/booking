@@ -1,0 +1,16 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kiểm tra kết nối Firebase</title>
+<style>body{font:16px/1.6 system-ui,sans-serif;margin:0;padding:18px;background:#f3f8f9;color:#10303a}h1{font-size:20px}pre{background:#fff;border:1px solid #d3e4e9;border-radius:12px;padding:12px;white-space:pre-wrap;word-break:break-word}.ok{color:#1b9a4a}.er{color:#d93a3a}</style></head><body>
+<h1>Kiểm tra kết nối Firebase</h1>
+<p>Trang này chỉ ĐỌC dữ liệu, không sửa hay xóa gì. Chụp màn hình kết quả gửi mình.</p>
+<pre id="o">Đang kiểm tra...</pre>
+<script type="module">
+import {db} from './firebase-config.js';
+import {doc,getDoc,collection,getDocs} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+const o=document.getElementById('o');let t='';const add=(s,c)=>{t+=(c?`<span class="${c}">${s}</span>`:s)+'\n';o.innerHTML=t};
+const pid=(db&&db.app&&db.app.options&&db.app.options.projectId)||'(không đọc được)';
+add('Project đang dùng: '+pid);add('Trình duyệt báo online: '+navigator.onLine);add('Thời gian: '+new Date().toLocaleString('vi-VN'));add('');
+try{const d=await getDoc(doc(db,'settings','site'));const x=d.data();add(x?`settings/site: CÓ dữ liệu (${Object.keys(x).length} mục, tên thương hiệu: ${x.brand||'trống'})`:'settings/site: KHÔNG CÓ dữ liệu (tài liệu trống hoặc chưa tồn tại)',x?'ok':'er')}catch(e){add('settings/site: LỖI '+(e.code||'')+' - '+(e.message||e),'er')}
+for(const c of ['ferries','cars','combos','pages']){try{const q=await getDocs(collection(db,c));add(`${c}: ${q.size} mục`,q.size?'ok':'er')}catch(e){add(`${c}: LỖI ${e.code||''} - ${e.message||e}`,'er')}}
+add('');add('Xong.');
+</script></body></html>

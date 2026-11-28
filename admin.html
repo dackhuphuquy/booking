@@ -99,7 +99,7 @@
 import {auth,db,ADMIN_EMAIL} from './firebase-config.js';
 import {GoogleAuthProvider,signInWithPopup,signOut,onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 import {doc,getDoc,setDoc,collection,getDocs,addDoc,updateDoc,deleteDoc,query,orderBy} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
-addEventListener('unhandledrejection',e=>{const c=(e.reason&&e.reason.code)||'';alert('Không lưu được'+(c?': '+c:'')+(c==='permission-denied'?'\nRules Firebase chưa cho phép thao tác này. Hãy kiểm tra Rules (file firestore.rules) đã có đủ các mục và bấm Publish.':''))});
+addEventListener('unhandledrejection',e=>{const c=(e.reason&&e.reason.code)||'';alert((c==='unavailable'||c==='failed-precondition')?'Không kết nối được tới Firebase ('+c+').\nHãy kiểm tra mạng/VPN, tải lại trang và chờ các ô hiện dữ liệu rồi mới bấm Lưu. Dữ liệu cũ của bạn không bị mất.':'Không lưu được'+(c?': '+c:'')+(c==='permission-denied'?'\nRules Firebase chưa cho phép thao tác này. Hãy kiểm tra Rules (file firestore.rules) đã có đủ các mục và bấm Publish.':''))});
 const $=i=>document.getElementById(i),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const AE=(ADMIN_EMAIL||'').trim().toLowerCase(),L=t=>{$('le').className='err';$('le').textContent=t};
 $('gb').onclick=async()=>{try{await signInWithPopup(auth,new GoogleAuthProvider())}catch(x){L(x.code==='auth/popup-blocked'?'Trình duyệt chặn cửa sổ đăng nhập, hãy cho phép popup rồi thử lại.':x.code==='auth/unauthorized-domain'?'Chưa thêm domain github.io vào Authorized domains của Firebase.':'Đăng nhập không thành công: '+x.code)}};
@@ -132,14 +132,14 @@ function ED(c){let items=[],id=null,cur=null;const P=k=>$(c.p+'_'+k);
   if(D&&confirm('Xóa mục này?')){await deleteDoc(doc(db,c.col,D));await load()}};
  reset();return{load}}
 /* ---- Giới thiệu & cài đặt chung ---- */
-const K=['brand','heroImg','logo','badge','tagline','phone','fb','ig','address','owner','birth','intro','edu','exp','pointsTitle','points','links','customers','privacy'];let av='';
-async function loadS(){const d=(await getDoc(doc(db,'settings','site'))).data()||{};K.forEach(k=>$('s_'+k).value=d[k]||'');av=d.avatar||'';$('f_note').value=d.ferryNote||'';$('cx_title').value=d.fleetTitle||'';$('cx_rules').value=d.carRules||'';$('f_notice').value=d.ferryNotice||'';$('f_procEyebrow').value=d.procEyebrow||'';$('f_procTitle').value=d.procTitle||'';$('f_procSub').value=d.procSub||'';$('f_procBody').value=d.procBody||'';$('s_av').value=av.startsWith('data:')?'':av}
-$('s_save').onclick=async()=>{const v=$('s_av').value.trim(),d={avatar:v||(av.startsWith('data:')?av:'')};K.forEach(k=>d[k]=$('s_'+k).value);await setDoc(doc(db,'settings','site'),d,{merge:true});$('s_m').textContent='Đã lưu';setTimeout(()=>$('s_m').textContent='',2000)};
+const K=['brand','heroImg','logo','badge','tagline','phone','fb','ig','address','owner','birth','intro','edu','exp','pointsTitle','points','links','customers','privacy'];let av='',okS=false;
+async function loadS(){const d=(await getDoc(doc(db,'settings','site'))).data()||{};K.forEach(k=>$('s_'+k).value=d[k]||'');av=d.avatar||'';$('f_note').value=d.ferryNote||'';$('cx_title').value=d.fleetTitle||'';$('cx_rules').value=d.carRules||'';$('f_notice').value=d.ferryNotice||'';$('f_procEyebrow').value=d.procEyebrow||'';$('f_procTitle').value=d.procTitle||'';$('f_procSub').value=d.procSub||'';$('f_procBody').value=d.procBody||'';$('s_av').value=av.startsWith('data:')?'':av;okS=true}
+$('s_save').onclick=async()=>{if(!okS)return alert('Chưa tải được dữ liệu cũ nên chưa cho lưu (để không ghi đè lên dữ liệu của bạn). Hãy tải lại trang và chờ các ô hiện dữ liệu.');const v=$('s_av').value.trim(),d={avatar:v||(av.startsWith('data:')?av:'')};K.forEach(k=>d[k]=$('s_'+k).value);await setDoc(doc(db,'settings','site'),d,{merge:true});$('s_m').textContent='Đã lưu';setTimeout(()=>$('s_m').textContent='',2000)};
 /* ---- Tàu ---- */
 const fE=ED({col:'ferries',p:'f',f:{name:'v',order:'n',info:'v',img:'v',schedule:'v',photos:'v',promo:'v'},
  re:{prices:RE('f_rows',[['type','Hạng ghế (vd: Ghế Eco, Ghế VIP, Giường)'],['adult','Người lớn'],['local','Người địa phương'],['senior','Cao tuổi (60+)'],['disabled','Khuyết tật'],['child','Trẻ em 6-11']],'f_add')},
  need:'name',msg:'Nhập tên tàu',add:'Thêm tàu',edit:'Sửa tàu',t:x=>x.name,s:x=>'· '+(x.prices||[]).length+' hạng ghế'});
-$('f_nsave').onclick=async()=>{await setDoc(doc(db,'settings','site'),{ferryNote:$('f_note').value,ferryNotice:$('f_notice').value,procEyebrow:$('f_procEyebrow').value,procTitle:$('f_procTitle').value,procSub:$('f_procSub').value,procBody:$('f_procBody').value},{merge:true});$('f_nm').textContent='Đã lưu';setTimeout(()=>$('f_nm').textContent='',2000)};
+$('f_nsave').onclick=async()=>{if(!okS)return alert('Chưa tải được dữ liệu cũ nên chưa cho lưu (để không ghi đè lên dữ liệu của bạn). Hãy tải lại trang và chờ các ô hiện dữ liệu.');await setDoc(doc(db,'settings','site'),{ferryNote:$('f_note').value,ferryNotice:$('f_notice').value,procEyebrow:$('f_procEyebrow').value,procTitle:$('f_procTitle').value,procSub:$('f_procSub').value,procBody:$('f_procBody').value},{merge:true});$('f_nm').textContent='Đã lưu';setTimeout(()=>$('f_nm').textContent='',2000)};
 const P=(t,a,l,s,d,c)=>({type:t,adult:a,local:l,senior:s,disabled:d,child:c});
 $('f_seed').onclick=async()=>{if(!confirm('Nhập sẵn 4 tàu theo bảng giá? Chỉ nên làm khi chưa có tàu nào.'))return;
  const Q=[['SUPERDONG 1 / SUPERDONG 2',[P('Ghế ngồi','344K','','290K','256K','246K'),P('Ghế nằm (SPD 2)','393K','','393K','393K','393K')]],
@@ -152,7 +152,7 @@ $('f_seed').onclick=async()=>{if(!confirm('Nhập sẵn 4 tàu theo bảng giá?
  await fE.load()};
 /* ---- Xe ---- */
 const cE=ED({col:'cars',p:'c',f:{name:'v',order:'n',price:'v',spec:'v',desc:'v',img:'v',imgs:'v'},need:'name',msg:'Nhập tên xe',add:'Thêm xe',edit:'Sửa xe',t:x=>x.name,s:x=>'· '+(x.price||'')});
-$('cx_save').onclick=async()=>{await setDoc(doc(db,'settings','site'),{fleetTitle:$('cx_title').value,carRules:$('cx_rules').value},{merge:true});$('cx_m').textContent='Đã lưu';setTimeout(()=>$('cx_m').textContent='',2000)};
+$('cx_save').onclick=async()=>{if(!okS)return alert('Chưa tải được dữ liệu cũ nên chưa cho lưu (để không ghi đè lên dữ liệu của bạn). Hãy tải lại trang và chờ các ô hiện dữ liệu.');await setDoc(doc(db,'settings','site'),{fleetTitle:$('cx_title').value,carRules:$('cx_rules').value},{merge:true});$('cx_m').textContent='Đã lưu';setTimeout(()=>$('cx_m').textContent='',2000)};
 /* ---- Combo ---- */
 const mE=ED({col:'combos',p:'m',f:{name:'v',order:'n',badge:'v',price:'v',img:'v',imgs:'v',caption:'v'},need:'name',msg:'Nhập tên combo',add:'Thêm combo',edit:'Sửa combo',t:x=>x.name,s:x=>'· '+(x.badge||'')});
 /* ---- Chuyên mục ---- */
